@@ -31,4 +31,16 @@ class User extends Authenticatable
     ];
 
 
+   public function perfil()
+    {
+        return $this->hasOne(\App\Perfil::class, 'id', 'id_perfil');
+    }
+
+    public function medico()
+    {
+        return $this->hasOne(\App\Medico::class, 'id', 'id_medico');
+    }
+
+
 }
+ 

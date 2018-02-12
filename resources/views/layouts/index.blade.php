@@ -10,13 +10,15 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Monster Admin Template - The Most Complete & Trusted Bootstrap 4 Admin Template</title>
+    <title>SmartAgenda</title>
     <!-- Bootstrap Core CSS -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="plantilla/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="plantilla/css/colors/blue.css" id="theme" rel="stylesheet">
+    <link href="{{ asset('css/flexigridcss/flexigrid.css?'.time()) }}" rel="stylesheet">
+    <link href="{{ asset('css/estilosPropios/estiloModal.css?'.time()) }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -66,6 +68,9 @@
                 <!-- End Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-collapse">
+                @yield('controles')
+                 
+
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
@@ -78,6 +83,8 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
+
+
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
@@ -125,10 +132,10 @@
                             <a href="{{url('/users')}}" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Usuarios</a>
                         </li>
                         <li>
-                            <a href="table-basic.html" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Basic Table</a>
+                            <a href="{{url('/doctor')}}" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Médicos</a>
                         </li>
                         <li>
-                            <a href="icon-fontawesome.html" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Icons</a>
+                            <a href="icon-fontawesome.html" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Reportes</a>
                         </li>
                         <li>
                             <a href="map-google.html" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Google Map</a>
@@ -167,6 +174,10 @@
             <!-- End footer -->
             <!-- ============================================================== -->
         </div>
+        <div id="tok">
+        {{ csrf_field() }}
+    </div>
+    
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
@@ -178,6 +189,9 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="assets/plugins/jquery/jquery.min.js"></script>
+
+    <script src="{{ asset('assets/plugins/jquery_validation_1_13_0/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+     <script src="{{ asset('assets/plugins/jquery_form_3_18/ajaxforms.js?'.time()) }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/plugins/bootstrap/js/tether.min.js"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -201,7 +215,72 @@
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
+    @yield('js')
     <script src="assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    
+     
+
+     <script src="{{ asset('js/flexigridjs/flexigrid.js?'.time()) }}" type="text/javascript"></script>
+
+
+</div>
+
+<div id="modalForm" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal titledg</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a  class="btn btn-primary" onclick="guardar();">Save changes</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="modalMensaje" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal titledg</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+      
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div id="normalModal3" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal titledg</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+         </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><
+
+
+
+<!-- Modal -->
+   
+                    
+        
+
 </body>
 
 </html>

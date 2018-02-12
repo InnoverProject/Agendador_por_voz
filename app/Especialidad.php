@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use App\Helpers\ModelHelper;
+//use App\Helpers\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Especialidad extends Model
 {
-     use ModelHelper;
+     
 
    protected $table='especialidad';
    public $primaryKey = 'id';

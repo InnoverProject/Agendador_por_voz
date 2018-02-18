@@ -13,6 +13,22 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::create('clinica', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('nombre')->unique();
+                $table->string('telefono');
+                $table->string('email');
+                $table->integer('iva');
+                $table->string('direccion');
+                $table->string('ciudad');
+                $table->string('region');
+                $table->string('cod_postal');
+                $table->string('color');
+                $table->integer('estatus')->default(1);
+                //$table->rememberToken();
+                $table->timestamps();
+            });
+
          Schema::create('especialidad', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('nombre')->unique();
@@ -27,7 +43,6 @@ class CreateUsersTable extends Migration
                 $table->string('nombre');
                 $table->string('rol');
                 $table->string('permisos');
-                $table->integer('estatus')->default(1);
                 //$table->rememberToken();
                 $table->timestamps();
             });
@@ -38,33 +53,48 @@ class CreateUsersTable extends Migration
                     $table->string('apellido_pat');
                     $table->string('apellido_mat');
                     $table->string('direccion');
-                    $table->string('edad')->nullable();
+                    $table->integer('edad')->nullable();
                     $table->string('sexo')->nullable();
                     $table->string('telefono',25)->nullable();
                     $table->string('correo')->nullable();
-                    $table->string('hra_entrada')->nullable();
-                    $table->string('hra_salida')->nullable();
-                    $table->string('cedula')->nullable();
                     $table->integer('estatus')->default(1);
                     $table->integer('id_especialidad')->unsigned();
+                    $table->integer('id_clinica')->unsigned();
                    // $table->rememberToken();
                     $table->timestamps();  
                     $table->foreign('id_especialidad')->references('id')->on('especialidad');
+                    $table->foreign('id_clinica')->references('id')->on('clinica');
         
         });
 
+
+         Schema::create('perfil_medico', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('cedula');
+                $table->string('casa_estudio');
+                $table->string('descripcion');
+                $table->integer('id_medico')->unsigned();
+                //$table->rememberToken();
+                $table->timestamps();
+                $table->foreign('id_medico')->references('id')->on('medico');
+            });
+
          Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('usuario')->unique();
+            $table->string('nombre')->unique();
             $table->string('password');
             $table->integer('id_medico')->unsigned();
             $table->integer('id_perfil')->unsigned();
+            //checar como poner foreign key predeterminada
+            $table->integer('id_paciente');
+            ///////
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('id_medico')->references('id')->on('medico');
             $table->foreign('id_perfil')->references('id')->on('perfil');
+            
         });
-  
+         
+
 
         Schema::create('paciente', function (Blueprint $table) {
                     $table->increments('id');
@@ -74,48 +104,77 @@ class CreateUsersTable extends Migration
                     $table->string('direccion');
                     $table->string('edad')->nullable();
                     $table->string('sexo')->nullable();
-                    $table->string('estatura')->nullable();
-                    $table->string('tipo_sangre')->nullable();
                     $table->string('telefono',25)->nullable();
                     $table->string('correo')->nullable();
+                    $table->string('fecha_nacimiento')->nullable();
                     $table->integer('estatus')->default(1);
                     $table->integer('id_medico')->unsigned();
+                    $table->integer('id_clinica')->unsigned();
                    // $table->rememberToken();
                     $table->timestamps();  
                     $table->foreign('id_medico')->references('id')->on('medico');
-        
+                    $table->foreign('id_clinica')->references('id')->on('clinica');
         });
+
+        Schema::create('receta', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('medicamento');
+                $table->string('indicacion');
+                $table->string('descripcion');
+                $table->integer('id_medico')->unsigned();
+                $table->integer('id_paciente')->unsigned();
+                //$table->rememberToken();
+                $table->timestamps();
+                $table->foreign('id_medico')->references('id')->on('medico');
+                $table->foreign('id_paciente')->references('id')->on('paciente');
+            });
+
+            Schema::create('consulta', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('nombre');
+                $table->string('apellido_pat');
+                $table->string('apellido_mat');
+                $table->integer('edad');
+                $table->integer('talla');
+                $table->decimal('peso_actual',5,2);
+                $table->string('consulta_por');
+                $table->string('examen_fisico');
+                $table->string('examen_laboratorio');
+                $table->string('diagnostico');
+                $table->integer('estatus')->default(1);
+                $table->integer('id_medico')->unsigned();
+                $table->integer('id_paciente')->unsigned();
+                //$table->rememberToken();
+                $table->timestamps();
+                $table->foreign('id_medico')->references('id')->on('medico');
+                $table->foreign('id_paciente')->references('id')->on('paciente');
+            });
    
-
-         Schema::create('historial', function (Blueprint $table) {
-                    $table->increments('id');
-                    $table->string('antecedentes');
-                    $table->date('fecha_ingreso');
-                    $table->integer('id_medico')->unsigned();
-                    $table->integer('id_paciente')->unsigned();
-                   // $table->rememberToken();
-                    $table->timestamps();  
-                    $table->foreign('id_medico')->references('id')->on('medico');
-                    $table->foreign('id_paciente')->references('id')->on('paciente');
+   
+//////?????????????????????????????????????????????????
         
-        });
   
+////////////////////////////
 
-
-           Schema::create('padecimiento', function (Blueprint $table) {
+           Schema::create(' ecedente', function (Blueprint $table) {
                     $table->increments('id');
-                    $table->string('descripcion');
-                    $table->string('medicacion')->nullable();
-                    $table->integer('id_historial')->unsigned();
+                    $table->string('alergia');
+                    $table->string('enfermedad_cronica')->nullable();
+                    $table->string('antecedente_quirurgico')->nullable();
+                    $table->string('vacunas')->nullable();
+                    $table->integer('id_paciente')->unsigned();
                     //$table->rememberToken();
                     $table->timestamps();  
-                    $table->foreign('id_historial')->references('id')->on('historial');
+                    $table->foreign('id_paciente')->references('id')->on('paciente');
                     
         });
   
-             Schema::create('calificacion', function (Blueprint $table) {
+             Schema::create('evaluacion', function (Blueprint $table) {
                     $table->increments('id');
-                    $table->string('evaluacion');
+                    $table->string('calificacion_medico');
+                    $table->string('calificacion_consulta');
+                    $table->string('calificacion_servicio');
+                    $table->string('comentario');
                     $table->integer('id_medico')->unsigned();
                     $table->integer('id_paciente')->unsigned();
                     //$table->rememberToken();
@@ -130,14 +189,37 @@ class CreateUsersTable extends Migration
                     $table->string('nombre',50);
                     $table->string('apellido_pat');
                     $table->string('apellido_mat');
+                    $table->string('observacion');
+                    $table->string('color');
                     $table->date('fecha');
-                    $table->string('hora');
+                    $table->date('hora');
                     $table->integer('id_medico')->unsigned();
+                    ///investigar poner foreign key default
+                    $table->integer('id_paciente')->unsigned();
                    // $table->rememberToken();
                     $table->timestamps();  
                     $table->foreign('id_medico')->references('id')->on('medico');
+                    $table->foreign('id_paciente')->references('id')->on('paciente');
                     
         });
+           
+
+            Schema::create('pago', function (Blueprint $table) {
+                    $table->increments('id');
+                    $table->integer('cantidad');
+                    $table->integer('id_medico')->unsigned();
+                    ///investigar poner foreign key default
+                    $table->integer('id_consulta')->unsigned();
+                   // $table->rememberToken();
+                    $table->timestamps();  
+                    $table->foreign('id_medico')->references('id')->on('medico');
+                    $table->foreign('id_consulta')->references('id')->on('consulta');
+                    
+        });
+
+
+
+
     }
 
     /**
@@ -147,6 +229,18 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('clinica');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('perfil');
+        Schema::dropIfExists('medico');
+        Schema::dropIfExists('paciente');
+        Schema::dropIfExists('consulta');
+        Schema::dropIfExists('antecedente');
+        Schema::dropIfExists('receta');
+        Schema::dropIfExists('cita');
+        Schema::dropIfExists('perfil_medico');
+        Schema::dropIfExists('evaluacion');
+        Schema::dropIfExists('pago');
+        Schema::dropIfExists('especialidad');
     }
 }

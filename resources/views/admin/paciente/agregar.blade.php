@@ -1,12 +1,12 @@
-<form id="frmMedicoRegistro" class="form-horizontal" role="form" action="{{ url('doctor/store') }}" method="POST" accept-charset="utf-8">
+ <form id="frmPacienteRegistro" class="form-horizontal" role="form" action="{{ url('patient/store') }}" method="POST" accept-charset="utf-8">
 	{{ csrf_field() }}
 
  <div class="col-md-12 col-md-offset-6"  style="overflow: auto; width: 100%; max-height: 1000px; overflow-x: hidden;  height: 370px;">
    <div class="input-group">
-  
+   
   <input type="text" class="form-control" name="nom" id="nom" placeholder="Nombre">
 </div>
-<br>
+<br> 
 <div class="input-group">
   
   <input type="text" class="form-control" name="ape_pat" id="ape_pat" placeholder="Apellido paterno">
@@ -44,36 +44,47 @@
 <br>
 <div class="input-group">
   
+  <input type="text" class="form-control" name="estatura" id="estatura" placeholder="Estatura">
+</div>
+
+<br>
+<div class="input-group">
+   
+  <input type="text" class="form-control" name="sangre" id="sangre" placeholder="Sangre">
+</div>
+
+<br>
+
+<div class="input-group">
+  
   <input type="text" class="form-control" name="tel" id="tel" placeholder="Teléfono">
 </div>
+
+
+
 <br>
+
 <div class="input-group">
   <span class="input-group-addon">@</span>
   <input type="mail" class="form-control" name="correo" id="correo" placeholder="Correo">
 </div>
 <br>
+<div class="input-group">  
+      <select name="estatus_id" id="estatus_id" class="form-control input-sm required">
+        <option value="" selected>Seleccione estatus</option>
+        <option value="1">Activo</option>
+        <option value="0">Inactivo</option>
+        
+      </select>
+    </div>
+    <br>
 <div class="input-group">
   
-  <input type="text" class="form-control" name="entrada" id="entada" placeholder="Hora de entrada">
-</div>
-<br>
-<div class="input-group">
+  <select name="medico" id="medico" class="form-control input-sm required">
   
-  <input type="text" class="form-control" name="salida" id="salida" placeholder="Hora de salida">
-</div>
-<br>
-<div class="input-group">
-  
-  <input type="text" class="form-control" name="ced" id="ced" placeholder="Cédula">
-</div>
-<br>
-<br>
-<div class="input-group">
- 
-  <select name="especialidad" id="especialidad" class="form-control input-sm required">
-        <option value="" selected>Especialidades</option>
-         @foreach($especialidades as $especialidad)
-        <option value="{{$especialidad->id}}">{{$especialidad->nombre}}</option>
+        <option value="" selected>Médico</option>
+        @foreach($medicos as $medico)
+        <option value="{{$medico->id}}">{{$medico->nombre}} {{$medico->apellido_pat}}</option>
          @endforeach
       </select>
  

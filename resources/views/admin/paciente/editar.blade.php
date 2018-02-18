@@ -1,11 +1,11 @@
-<form id="frmMedicoRegistro" class="form-horizontal" role="form" action="{{ url('doctor/update') }}" method="POST" accept-charset="utf-8">
+<form id="frmPacienteRegistro" class="form-horizontal" role="form" action="{{ url('patient/update') }}" method="POST" accept-charset="utf-8">
 	{{ csrf_field() }}
 @foreach($medicos as $medico)
  <div class="col-md-12 col-md-offset-6"  style="overflow: auto; width: 100%; max-height: 1000px; overflow-x: hidden;  height: 370px;">
    <div class="input-group">
   
   <input type="text" class="form-control" name="nom" id="nom" placeholder="Nombre" value="{{$medico->nombre}}">
-</div>
+</div> 
 <br>
 <div class="input-group">
   
@@ -71,16 +71,15 @@
   <input type="hidden" name="status" id="status" value="{{$medico->estatus}}">
     {{(($medico->estatus==1)?'Activo':'' )}}
 </div>
-<br> 
+<br>
 <div class="input-group">
-  
+  @foreach($especialidades as $especialidad)
   <select name="especialidad" id="especialidad" class="form-control input-sm required">
-    <option value="{{$medico->id_especialidad}}" selected>{{$medico->especialidad->nombre}}</option>
-        @foreach($especialidades as $especialidad)
+        <option value="{{$medico->id_especialidad}}" selected>{{$medico->especialidad->nombre}}</option>
         <option value="{{$especialidad->id}}">{{$especialidad->nombre}}</option>
-         @endforeach
+        
       </select>
- 
+  @endforeach
   
 </div>
 

@@ -16,7 +16,7 @@ class Medico extends Model
  
 
     protected $fillable = [
-        'nombre','apellido_pat','apellido_mat','direccion','edad','sexo','telefono','correo','hra_entrada','hra_salida','cedula','estatus','id_especialidad',
+        'nombre','apellido_pat','apellido_mat','direccion','edad','sexo','telefono','correo','hra_entrada','hra_salida','cedula','estatus','id_especialidad','id_clinica'
     ];
 
 
@@ -47,9 +47,34 @@ class Medico extends Model
         return $this->hasMany(\App\Cita::class, 'id_medico', 'id');
     }
 
-     public function calificacion()
+        public function clinica()
     {
-        return $this->hasMany(\App\Calificacion::class, 'id_medico', 'id');
+        return $this->hasMany(\App\Clinica::class, 'id_clinica', 'id');
+    } 
+
+      public function evaluacion()
+    {
+        return $this->hasOne(\App\Evaluacion::class, 'id', 'id_paciente');
+    }
+
+    public function perfil_med()
+    {
+        return $this->hasOne(\App\Perfil_medico::class, 'id_medico', 'id');
+    } 
+
+     public function receta()
+    {
+        return $this->hasOne(\App\Receta::class, 'id', 'id_medico');
+    }
+
+     public function antecedente()
+    {
+        return $this->hasOne(\App\Antecedente::class, 'id', 'id_medico');
+    }
+
+      public function pago()
+    {
+        return $this->hasOne(\App\Pago::class, 'id', 'id_medico');
     }
 }
  

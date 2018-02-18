@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class Especialidad extends Model
-{
+{ 
      
 
    protected $table='especialidad';

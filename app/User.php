@@ -18,7 +18,7 @@ class User extends Authenticatable
     protected $table='users';
 
     protected $fillable = [
-        'usuario', 'password', 'id_medico', 'id_perfil',
+        'nombre', 'password', 'id_medico', 'id_perfil','id_paciente'
     ];
 
     /**
@@ -26,7 +26,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
+    protected $hidden = [ 
         'password', 'remember_token',
     ];
 
@@ -40,7 +40,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(\App\Medico::class, 'id', 'id_medico');
     }
-
+      public function paciente()
+    {
+        return $this->hasOne(\App\Paciente::class, 'id', 'id_paciente');
+    }
 
 }
  

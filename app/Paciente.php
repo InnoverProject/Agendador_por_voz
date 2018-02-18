@@ -15,7 +15,7 @@ class Paciente extends Model
    public $timestamps = true;
 
    protected $fillable = [
-        'nombre','apellido_pat','apellido_mat','direccion','edad','sexo','estatura','tipo_sangre','telefono','correo','estatus','id_medico',
+        'nombre','apellido_pat','apellido_mat','direccion','edad','sexo','telefono','correo','fecha_nacimiento','estatus','id_medico','id_clinica'
     ]; 
 
      public function medico()
@@ -25,14 +25,36 @@ class Paciente extends Model
 
       public function paciente()
     {
-        return $this->hasMany(\App\Historial::class, 'id_paciente', 'id');
+        return $this->hasMany(\App\Cita::class, 'id_paciente', 'id');
     } 
 
-    public function calificacion()
+    public function evaluacion()
     {
-        return $this->hasMany(\App\Calificacion::class, 'id_paciente', 'id');
+        return $this->hasMany(\App\Evaluacion::class, 'id_paciente', 'id');
+    }
+    
+       public function usuario()
+    {
+        return $this->hasMany(\App\User::class, 'id_paciente', 'id');
+    }
+     
+       public function clinica()
+    {
+        return $this->hasMany(\App\Clinica::class, 'id_clinica', 'id');
+    }
+     public function paciente_eval()
+    {
+        return $this->hasOne(\App\Evaluacion::class, 'id', 'id_paciente');
+    } 
+
+      public function receta()
+    {
+        return $this->hasOne(\App\Receta::class, 'id', 'id_paciente');
     }
 
-
+    public function antecedente()
+    {
+        return $this->hasOne(\App\Antecedente::class, 'id', 'id_paciente');
+    }
 } 
  

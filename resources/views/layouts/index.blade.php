@@ -91,7 +91,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" style="color: white">
-                                    {{ Auth::user()->usuario }} <span class="caret"></span>
+                                    {{ Auth::user()->nombre }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -135,10 +135,10 @@
                             <a href="{{url('/doctor')}}" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Médicos</a>
                         </li>
                         <li>
-                            <a href="icon-fontawesome.html" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Reportes</a>
+                            <a href="{{url('/especial')}}" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Especialidad</a>
                         </li>
                         <li>
-                            <a href="map-google.html" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Google Map</a>
+                            <a href="{{url('patient')}}" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Pacientes</a>
                         </li>
                         <li>
                             <a href="pages-blank.html" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Blank Page</a>
@@ -236,8 +236,8 @@
         <p>One fine body…</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <a  class="btn btn-primary" onclick="guardar();">Save changes</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" onclick="guardar();">Guardar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

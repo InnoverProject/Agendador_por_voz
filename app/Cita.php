@@ -15,7 +15,7 @@ class Cita extends Model
    public $timestamps = true;
 
    protected $fillable = [
-        'nombre','apellido_pat','apellido_mat','observacion','color','fecha','hora','id_medico','id_paciente'
+        'nombre','apellido_pat','apellido_mat','observacion','color','fecha','hora','estatus','id_medico','id_paciente'
     ];
 
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clinica extends Model
 {
-    use ModelHelper;
+  
 
     protected $table='clinica';
    public $primaryKey = 'id';

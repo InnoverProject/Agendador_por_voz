@@ -32,6 +32,11 @@ Route::post('especial/update', 'EspecialidadController@update');
 Route::post('patient/grid', 'PacienteController@grid');
 Route::post('patient/store', 'PacienteController@store');
 Route::post('patient/update', 'PacienteController@update');
+
+Route::post('profile/grid', 'PerfilController@grid');
+Route::post('profile/store', 'PerfilController@store');
+Route::post('profile/update', 'PerfilController@update');
+
 Route::get('users/{id}/edit', 'UsuarioController@edit');
 
 
@@ -42,6 +47,7 @@ Route::resource('/users', 'UsuarioController');
 Route::resource('/doctor', 'MedicoController');
 Route::resource('/especial', 'EspecialidadController');
 Route::resource('/patient', 'PacienteController');
+Route::resource('/profile', 'PerfilController');
 
 
 

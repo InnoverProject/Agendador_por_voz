@@ -190,9 +190,7 @@ class EspecialidadController extends Controller
     {
           $especialidad = Especialidad::find($id);
         try {
-          
-            $especialidad->estatus=0;
-            $especialidad->save();
+            $especialidad->delete();
             echo "Eliminado";
         } catch (Exception $e) {
             //print_r($e->errorInfo);

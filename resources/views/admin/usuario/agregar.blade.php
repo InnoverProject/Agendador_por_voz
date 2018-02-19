@@ -1,14 +1,23 @@
 <form id="frmUsuarioRegistro" class="form-horizontal" role="form" action="{{ url('users/store') }}" method="POST" accept-charset="utf-8">
 	{{ csrf_field() }}
-<div class="row">
+<div class="row"> 
     <div class="col">
     <label class="control-label col-xs-2" style="font-family: sans-serif;">Seleccione un médico</label>
-      <select name="medicoId" id="medicoId" class="form-control input-sm required">
+      <select name="medicoId" id="medicoId" class="form-control input-sm">
 				<option value="" selected>médicos</option>
 				@foreach ($medicos as $medico)
 					<option value="{{$medico->id}}">{{$medico->nombre}} {{$medico->apellido_pat}}</option>
 				@endforeach
 			</select>
+    </div>
+    <div class="col">
+    <label class="control-label col-xs-2" style="font-family: sans-serif;">Seleccione un paciente</label>
+      <select name="pacienteId" id="pacienteId" class="form-control input-sm">
+        <option value="" selected>pacientes</option>
+        @foreach ($pacientes as $paciente)
+          <option value="{{$paciente->id}}">{{$paciente->nombre}} {{$paciente->apellido_pat}}</option>
+        @endforeach
+      </select>
     </div>
     <div class="col">
       <label class="control-label col-xs-2" style="font-family: sans-serif;">Seleccione un perfil</label>
@@ -36,7 +45,7 @@
   <br>
 <div class="row">
     <div class="col">
-  
+   
     </div>
     <div class="col">
       <label class="control-label col-xs-2" style="font-family: sans-serif;">Confirmar contraseña</label>
@@ -46,7 +55,7 @@
   </div>
 
 <div class="alert alert-warning hide" id="alertcontra">
-    <strong>Alerta!</strong> Las contraseñas no coinciden.
+    
   </div>
 
 </form>

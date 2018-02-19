@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Especialidad;
-use App\Medico;
-use App\Clinica;
+use App\Perfil;
 //use App\Perfil;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Support\Facades\Crypt;
-
-class MedicoController extends Controller
+class PerfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +14,11 @@ class MedicoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.medico.index');
+    { 
+        return view('admin.perfil.index');
     }
 
     /**
-     * 
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,24 +36,21 @@ class MedicoController extends Controller
      */
     public function store(Request $request)
     {
-         $medico=new Medico;
+        $perfil=new Perfil; 
+        
+         try {
+             $cadena="";
+         if (isset($request->permisos)) {
+                foreach($request->permisos as $permiso){
+                        $cadena.=(empty($cadena))?$permiso:"|".$permiso;
+                }//foreach
+            }
 
-          try {
-
-
-        $medico->nombre=$request->nom;
-        $medico->apellido_pat=$request->ape_pat;
-        $medico->apellido_mat=$request->ape_mat;
-        $medico->direccion=$request->dir;
-        $medico->telefono=$request->tel;
-        $medico->edad=$request->edad;
-        $medico->sexo=$request->sex;
-        $medico->correo=$request->correo;
-        $medico->estatus=$request->estatus;
-        $medico->id_especialidad=$request->especialidad;
-        $medico->id_clinica=$request->id_cli;
-        $medico->save();
-        echo $medico->id;
+        $perfil->nombre=$request->nombre;
+        $perfil->rol=$request->rol;
+        $perfil->permisos=$cadena;
+        $perfil->save();
+        echo $perfil->id;
         }
         catch (Illuminate\Database\QueryException $e){
             if (1062 == $e->errorInfo[1]) {
@@ -68,10 +60,9 @@ class MedicoController extends Controller
             }
         }
         
-    } 
- 
-
-public function grid(Request $request){
+    }
+     
+     public function grid(Request $request){
 
        if ($request->ajax()) {
 
@@ -85,9 +76,9 @@ public function grid(Request $request){
  
 
 
-            $medico = DB::select($this->consultaUsuarios());
+            $perfil = DB::select($this->consultaUsuarios());
            // $archivo = DB::select($this->archivos(6));
-            $total_records = count($medico);
+            $total_records = count($perfil);
             $paginas = ceil($total_records / $rp);
 
             if($page > $paginas)
@@ -100,7 +91,7 @@ public function grid(Request $request){
 
             //$editar = $this->tienePermiso('EDITAR_AREA');
         
-            $medicos = $medico;
+            $perfiles = $perfil;
 
 //            dd($users);
             
@@ -108,18 +99,17 @@ public function grid(Request $request){
             $data['page'] = $page;
             $data['total'] = $total_records;
             $data['rows'] = array();
-            foreach ($medicos as $medico) { 
+            foreach ($perfiles as $perfil) { 
 
                      $data['rows'][] = array(
-                        'id' => $medico->id,
+                        'id' => $perfil->id,
                         'cell' => array(
-                                $medico->nombreusuario,
-                                $medico->telefono,
-                                $medico->correo,
-                                '<a onclick="agregar('.$medico->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
+                                $perfil->nombre,
+                                $perfil->rol,
+                                '<a onclick="agregar('.$perfil->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
                                
                                     //Eliminar
-                                    '<a onclick="eliminar('.$medico->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
+                                    '<a onclick="eliminar('.$perfil->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
                                 )
                     ); # code...
                  
@@ -142,7 +132,7 @@ public function grid(Request $request){
     {
         //
     }
- 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -150,17 +140,16 @@ public function grid(Request $request){
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {  
-        $especialidad=Especialidad::select('*')->where('estatus',1)->orderBy('nombre','asc')->get();
-        $clinica=Clinica::select('id')->get();
+    {
         //$perfil=Perfil::select('*')->orderBy('nombre','asc')->get(); 
         if ($id==0) {
            
-        return view('admin.medico.agregar')->with('especialidades',$especialidad)->with('clinicas',$clinica)->render();
+        return view('admin.perfil.agregar')->render();
     }
     if ($id>0) {
-         $medicos=Medico::select('*')->where('id',$id)->orderBy('nombre','asc')->get();
-         return view('admin.medico.editar')->with('especialidades',$especialidad)->with('medicos',$medicos)->render();   
+         $perfil=Perfil::findOrFail($id);
+         $permisos = explode("|",$perfil->permisos);
+         return view('admin.perfil.editar')->with('perfiles',$perfil)->with('permisos',$permisos)->render();   
     }
     }
 
@@ -169,26 +158,25 @@ public function grid(Request $request){
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response 
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        $medico = Medico::findOrFail($request->id);
+        $perfil = Perfil::findOrFail($request->id);
 
-         try {
-        $medico->nombre=$request->nom;
-        $medico->apellido_pat=$request->ape_pat;
-        $medico->apellido_mat=$request->ape_mat;
-        $medico->direccion=$request->dir;
-        $medico->edad=$request->edad;
-        $medico->sexo=$request->sex;
-        $medico->telefono=$request->tel;
-        $medico->correo=$request->correo;
-        $medico->estatus=$request->estatus;
-        $medico->id_especialidad=$request->especialidad;
-        $medico->id_clinica=$request->id_cli;
-        $medico->save();
-        echo $medico->id;
+        try { 
+             $cadena="";
+         if (isset($request->permisos)) {
+                foreach($request->permisos as $permiso){
+                        $cadena.=(empty($cadena))?$permiso:"|".$permiso;
+                }//foreach
+            }
+
+        $perfil->nombre=$request->nombre;
+        $perfil->rol=$request->rol;
+        $perfil->permisos=$cadena;
+        $perfil->save();
+        echo $perfil->id;
         }
         catch (Illuminate\Database\QueryException $e){
             if (1062 == $e->errorInfo[1]) {
@@ -197,6 +185,7 @@ public function grid(Request $request){
                 echo $e;
             }
         }
+        
     }
 
     /**
@@ -207,28 +196,14 @@ public function grid(Request $request){
      */
     public function destroy($id)
     {
-         try {
-            $medico = Medico::find($id);
-            $medico->estatus=0;
-            $medico->save();
-            echo "Eliminado";
-        } catch (Exception $e) {
-            //print_r($e->errorInfo);
-            if ($e->errorInfo[1]==1451) {
-                echo 'No fue posible eliminarlo debido a que tiene información relacionada.';
-            } else {
-                echo $e;
-            }
-        }
-    } 
+        //
+    }
 
-    public function consultaUsuarios(){
+        public function consultaUsuarios(){
 
-    $consulta="SELECT id,CONCAT(nombre, ' ',apellido_pat,' ',apellido_mat) as nombreusuario,telefono,correo 
-               from medico where estatus=1";
+    $consulta="SELECT * from perfil";
 
     return $consulta;           
 
     }
-
 }

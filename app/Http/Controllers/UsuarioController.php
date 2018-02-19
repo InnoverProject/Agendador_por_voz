@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Medico;
 use App\Perfil;
+use App\Paciente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
@@ -52,9 +53,21 @@ class UsuarioController extends Controller
                 //$user->password_recharge = Crypt::encrypt($request->password);
             }
 
-        $usuario->usuario=$request->usuario;
+        $usuario->nombre=$request->usuario;
+        if ($request->medicoId!="") {
         $usuario->id_medico=$request->medicoId;
+        
+        }else{
+        $usuario->id_medico=0;    
+        }
+        
         $usuario->id_perfil=$request->perfilId;
+        if ($request->pacienteId!="") {
+        $usuario->id_paciente=$request->pacienteId;    
+        }else{
+        $usuario->id_paciente=0;    
+        }
+        
         $usuario->save();
         echo $usuario->id;
         }
@@ -91,13 +104,14 @@ class UsuarioController extends Controller
     {
         $medico=Medico::select('*')->orderBy('nombre','asc')->get();
         $perfil=Perfil::select('*')->orderBy('nombre','asc')->get(); 
+        $paciente=Paciente::select('*')->orderBy('nombre','asc')->get();
         if ($id==0) {
            
-        return view('admin.usuario.agregar')->with('medicos',$medico)->with('perfiles',$perfil)->render();
+        return view('admin.usuario.agregar')->with('medicos',$medico)->with('perfiles',$perfil)->with('pacientes',$paciente)->render();
     }
     if ($id>0) {
-        $usuario=User::select('*')->where('id',$id)->orderBy('usuario','asc')->get();
-        return view('admin.usuario.editar')->with('medicos',$medico)->with('perfiles',$perfil)->with('usuarios',$usuario)->render();   
+        $usuario=User::select('*')->where('id',$id)->orderBy('nombre','asc')->get();
+        return view('admin.usuario.editar')->with('perfiles',$perfil)->with('usuarios',$usuario)->render();   
     }
     }
 
@@ -119,7 +133,7 @@ class UsuarioController extends Controller
                 //$user->password_recharge = Crypt::encrypt($request->password);
             }
 
-        $usuario->usuario=$request->usuario;
+        $usuario->nombre=$request->usuario;
         $usuario->id_medico=$request->medicoId;
         $usuario->id_perfil=$request->perfilId;
         $usuario->save();

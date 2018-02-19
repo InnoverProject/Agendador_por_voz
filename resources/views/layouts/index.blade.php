@@ -141,7 +141,7 @@
                             <a href="{{url('patient')}}" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Pacientes</a>
                         </li>
                         <li>
-                            <a href="pages-blank.html" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Blank Page</a>
+                            <a href="{{url('profile')}}" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Perfiles</a>
                         </li>
                         <li>
                             <a href="pages-error-404.html" class="waves-effect"><i class="fa fa-info-circle m-r-10" aria-hidden="true"></i>Error 404</a>

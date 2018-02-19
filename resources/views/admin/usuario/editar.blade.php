@@ -3,16 +3,19 @@
  
 	    @foreach($usuarios as $usuario)
 <div class="row">
-    <div class="col">
+    <div class="col {{(($usuario->id_medico==0)? 'hide' :'' )}}">
     <label class="control-label col-xs-2" style="font-family: sans-serif;">Médico</label>
       <input type="hidden" name="medicoId" id="medicoId" value="{{$usuario->id_medico}}">
      <div class="col-md-4 text-center">
        {{$usuario->medico->nombre}}
      </div>
-
-     		
-				
-		
+    </div>
+    <div class="col {{(($usuario->id_paciente==0)? 'hide' : '')}}">
+    <label class="control-label col-xs-2" style="font-family: sans-serif;">Paciente</label>
+    <input type="hidden" name="pacienteId" id="pacienteId" value="{{$usuario->id_paciente}}">
+     <div class="col-md-4 text-center">
+    
+     </div>
     </div>
     <div class="col">
       <label class="control-label col-xs-2" style="font-family: sans-serif;">Seleccione un perfil</label>
@@ -30,7 +33,7 @@
     <div class="col">
 
     <label class="control-label col-xs-2" style="font-family: sans-serif;">Usuario</label>
-      <input type="text" name="usuario" class="form-control required" value="{{$usuario->usuario}}">
+      <input type="text" name="usuario" id="usuario" class="form-control required" value="{{$usuario->nombre}}">
     </div>
     
     <div class="col">

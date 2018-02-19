@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paciente extends Model
 {
-    use ModelHelper;
+    //use ModelHelper;
 
    protected $table='paciente';
    public $primaryKey = 'id';
@@ -23,7 +23,7 @@ class Paciente extends Model
         return $this->hasOne(\App\Medico::class, 'id', 'id_medico');
     } 
 
-      public function paciente()
+      public function paciente() 
     {
         return $this->hasMany(\App\Cita::class, 'id_paciente', 'id');
     } 

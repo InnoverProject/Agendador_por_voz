@@ -42,7 +42,7 @@ class CreateUsersTable extends Migration
                 $table->increments('id');
                 $table->string('nombre');
                 $table->string('rol');
-                $table->string('permisos');
+                $table->text('permisos');
                 //$table->rememberToken();
                 $table->timestamps();
             });
@@ -193,6 +193,7 @@ class CreateUsersTable extends Migration
                     $table->string('color');
                     $table->date('fecha');
                     $table->date('hora');
+                    $table->integer('estatus')->default(1);
                     $table->integer('id_medico')->unsigned();
                     ///investigar poner foreign key default
                     $table->integer('id_paciente')->unsigned();

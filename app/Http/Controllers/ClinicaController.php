@@ -1,31 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Perfil;
+use App\Clinica;
+
 //use App\Perfil;
-use Illuminate\Support\Facades\DB;
-class PerfilController extends Controller
-{ 
+use Illuminate\Support\Facades\DB; 
+
+class ClinicaController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-        return view('admin.perfil.index');
+    {
+        return view('admin.clinica.index');
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
-        //
+       
+        
     }
 
     /**
@@ -36,21 +38,23 @@ class PerfilController extends Controller
      */
     public function store(Request $request)
     {
-        $perfil=new Perfil; 
-        
-         try {
-             $cadena="";
-         if (isset($request->permisos)) {
-                foreach($request->permisos as $permiso){
-                        $cadena.=(empty($cadena))?$permiso:"|".$permiso;
-                }//foreach
-            }
+         $clinica=new Clinica;
 
-        $perfil->nombre=$request->nombre;
-        $perfil->rol=$request->rol;
-        $perfil->permisos=$cadena;
-        $perfil->save();
-        echo $perfil->id;
+          try {
+
+
+        $clinica->nombre=$request->nom;
+        $clinica->telefono=$request->tel;
+        $clinica->email=$request->correo;
+        $clinica->iva=$request->iva;
+        $clinica->direccion=$request->dir;
+        $clinica->ciudad=$request->ciudad;
+        $clinica->region=$request->region;
+        $clinica->cod_postal=$request->cp;
+        $clinica->color=$request->color;
+        $clinica->estatus=$request->estatus;
+        $clinica->save();
+        echo $clinica->id;
         }
         catch (Illuminate\Database\QueryException $e){
             if (1062 == $e->errorInfo[1]) {
@@ -59,9 +63,9 @@ class PerfilController extends Controller
                 echo $e;
             }
         }
-        
     }
-     
+
+
      public function grid(Request $request){
 
        if ($request->ajax()) {
@@ -76,9 +80,9 @@ class PerfilController extends Controller
  
 
 
-            $perfil = DB::select($this->consultaUsuarios());
+            $clinica = DB::select($this->consultaUsuarios());
            // $archivo = DB::select($this->archivos(6));
-            $total_records = count($perfil);
+            $total_records = count($clinica);
             $paginas = ceil($total_records / $rp);
 
             if($page > $paginas)
@@ -91,25 +95,28 @@ class PerfilController extends Controller
 
             //$editar = $this->tienePermiso('EDITAR_AREA');
         
-            $perfiles = $perfil;
+            $clinicas = $clinica;
 
 //            dd($users);
-            
+             
             $data = array();
             $data['page'] = $page;
             $data['total'] = $total_records;
             $data['rows'] = array();
-            foreach ($perfiles as $perfil) { 
+            foreach ($clinicas as $clinica) { 
 
                      $data['rows'][] = array(
-                        'id' => $perfil->id,
+                        'id' => $clinica->id,
                         'cell' => array(
-                                $perfil->nombre,
-                                $perfil->rol,
-                                '<a onclick="agregar('.$perfil->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
+                                $clinica->nombre,
+                                $clinica->telefono,
+                                $clinica->email,
+                                $clinica->direccion,
+                                (($clinica->estatus==1)? 'Activo' : 'Inactivo'),
+                                '<a onclick="agregar('.$clinica->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
                                
                                     //Eliminar
-                                    '<a onclick="eliminar('.$perfil->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
+                                    '<a onclick="eliminar('.$clinica->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
                                 )
                     ); # code...
                  
@@ -144,12 +151,11 @@ class PerfilController extends Controller
         //$perfil=Perfil::select('*')->orderBy('nombre','asc')->get(); 
         if ($id==0) {
            
-        return view('admin.perfil.agregar')->render();
+        return view('admin.clinica.agregar')->render();
     }
     if ($id>0) {
-         $perfil=Perfil::findOrFail($id);
-         $permisos = explode("|",$perfil->permisos);
-         return view('admin.perfil.editar')->with('perfiles',$perfil)->with('permisos',$permisos)->render();   
+         $clinica=Clinica::where('id',$id)->get();
+         return view('admin.clinica.editar')->with('clinicas',$clinica)->render();   
     }
     }
 
@@ -162,21 +168,23 @@ class PerfilController extends Controller
      */
     public function update(Request $request)
     {
-        $perfil = Perfil::findOrFail($request->id);
+         $clinica=Clinica::findOrFail($request->id);
 
-        try { 
-             $cadena="";
-         if (isset($request->permisos)) {
-                foreach($request->permisos as $permiso){
-                        $cadena.=(empty($cadena))?$permiso:"|".$permiso;
-                }//foreach
-            }
+          try {
 
-        $perfil->nombre=$request->nombre;
-        $perfil->rol=$request->rol;
-        $perfil->permisos=$cadena;
-        $perfil->save();
-        echo $perfil->id;
+
+        $clinica->nombre=$request->nom;
+        $clinica->telefono=$request->tel;
+        $clinica->email=$request->correo;
+        $clinica->iva=$request->iva;
+        $clinica->direccion=$request->dir;
+        $clinica->ciudad=$request->ciudad;
+        $clinica->region=$request->region;
+        $clinica->cod_postal=$request->cp;
+        $clinica->color=$request->color;
+        $clinica->estatus=$request->estatus;
+        $clinica->save();
+        echo $clinica->id; 
         }
         catch (Illuminate\Database\QueryException $e){
             if (1062 == $e->errorInfo[1]) {
@@ -185,7 +193,6 @@ class PerfilController extends Controller
                 echo $e;
             }
         }
-        
     }
 
     /**
@@ -197,8 +204,8 @@ class PerfilController extends Controller
     public function destroy($id)
     {
         try {
-            $perfil = Perfil::find($id);
-            $perfil->delete();
+            $clinica = Clinica::find($id);
+            $clinica->delete();
             echo "Eliminado";
         } catch (Exception $e) {
             //print_r($e->errorInfo);
@@ -210,9 +217,9 @@ class PerfilController extends Controller
         }
     }
 
-        public function consultaUsuarios(){
+    public function consultaUsuarios(){
 
-    $consulta="SELECT * from perfil";
+    $consulta="SELECT * from clinica where estatus=1";
 
     return $consulta;           
 

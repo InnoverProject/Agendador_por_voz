@@ -118,9 +118,10 @@ class CreateUsersTable extends Migration
 
         Schema::create('receta', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('medicamento');
+                //$table->string('medicamento');
                 $table->string('indicacion');
-                $table->string('descripcion');
+                //$table->string('descripcion');
+                $table->date('fecha');
                 $table->integer('id_medico')->unsigned();
                 $table->integer('id_paciente')->unsigned();
                 //$table->rememberToken();
@@ -156,7 +157,7 @@ class CreateUsersTable extends Migration
   
 ////////////////////////////
 
-           Schema::create(' ecedente', function (Blueprint $table) {
+           Schema::create('antecedente', function (Blueprint $table) {
                     $table->increments('id');
                     $table->string('alergia');
                     $table->string('enfermedad_cronica')->nullable();
@@ -217,6 +218,14 @@ class CreateUsersTable extends Migration
                     $table->foreign('id_consulta')->references('id')->on('consulta');
                     
         });
+            
+        Schema::create('archivos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('nombre');
+            $table->integer('id_paciente')->default(0);
+            $table->timestamps();
+           
+        });
 
 
 
@@ -243,5 +252,6 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('evaluacion');
         Schema::dropIfExists('pago');
         Schema::dropIfExists('especialidad');
+        Schema::dropIfExists('archivos');
     }
 }

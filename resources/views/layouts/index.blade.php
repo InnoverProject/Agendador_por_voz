@@ -19,6 +19,11 @@
     <link href="plantilla/css/colors/blue.css" id="theme" rel="stylesheet">
     <link href="{{ asset('css/flexigridcss/flexigrid.css?'.time()) }}" rel="stylesheet">
     <link href="{{ asset('css/estilosPropios/estiloModal.css?'.time()) }}" rel="stylesheet">
+      
+    <link href="{{ asset('js/dropzone/dropzone.css?'.time()) }}" rel="stylesheet">
+
+     
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -126,33 +131,62 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li>
+
                             <a href="index.html" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Dashboard</a>
+                  
                         </li>
+                        @if(tienePermiso('VER_USUARIO'))
                         <li>
+
                             <a href="{{url('/users')}}" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Usuarios</a>
                         </li>
+                        @else
+
+                        @endif
+                        @if(tienePermiso('VER_MEDICO'))
+
                         <li>
                             <a href="{{url('/doctor')}}" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Médicos</a>
                         </li>
+                        @else
+                        @endif
+                        @if(tienePermiso('VER_ESPECIALIDAD'))
+
                         <li>
                             <a href="{{url('/especial')}}" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Especialidad</a>
                         </li>
+                        @else
+                        @endif
+                        @if(tienePermiso('VER_PACIENTE'))
+
                         <li>
                             <a href="{{url('patient')}}" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Pacientes</a>
                         </li>
+                        @else
+                        @endif
+                        @if(tienePermiso('VER_PERFIL'))
+
                         <li>
                             <a href="{{url('profile')}}" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Perfiles</a>
                         </li>
+                        @else
+                        @endif
+                        @if(tienePermiso('VER_CLINICA'))
                         <li>
-                            <a href="pages-error-404.html" class="waves-effect"><i class="fa fa-info-circle m-r-10" aria-hidden="true"></i>Error 404</a>
+                            <a href="{{url('clinic')}}" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Clìnica</a>
                         </li>
+                         @else
+                        @endif
+                       
                     </ul>
+
                     <div class="text-center m-t-30">
                         <a href="https://wrappixel.com/templates/monsteradmin/" class="btn btn-danger"> Upgrade to Pro</a>
                     </div>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
+
             <!-- End Sidebar scroll-->
         </aside>
         <!-- ============================================================== -->
@@ -188,10 +222,19 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="assets/plugins/jquery/jquery.min.js"></script>
-
+    <script src="assets/plugins/jquery/jquery-3.3.1.min.js" ></script>
+      <script src="{{ asset('js/speech/artyom.min.js?'.time()) }}" type="text/javascript"></script>
+     <script src="{{ asset('js/speech/artyomCommands.js?'.time()) }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('js/backend_js/asistente.js?'.time()) }}" ></script>
+<script type="text/javascript" src="{{ asset('js/dropzone/dropzone.js?'.time()) }}"></script>
     <script src="{{ asset('assets/plugins/jquery_validation_1_13_0/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+  
+      
      <script src="{{ asset('assets/plugins/jquery_form_3_18/ajaxforms.js?'.time()) }}"></script>
+     <script src="{{ asset('js/fontawesome/fontawesome-all.js?'.time()) }}"></script>
+
+
+    
     <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/plugins/bootstrap/js/tether.min.js"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -218,12 +261,13 @@
     @yield('js')
     <script src="assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
     
-     
+       
 
      <script src="{{ asset('js/flexigridjs/flexigrid.js?'.time()) }}" type="text/javascript"></script>
-
-
+ 
 </div>
+
+
 
 <div id="modalForm" class="modal fade">
   <div class="modal-dialog modal-lg">

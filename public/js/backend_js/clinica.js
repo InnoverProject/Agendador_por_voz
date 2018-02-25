@@ -1,18 +1,20 @@
-$(document).ready(function() {
+ $(document).ready(function() {
 	var token = $('#tok').children().val();
- 	var filtro="doctor/grid?_token="+token;
+ 	var filtro="clinic/grid?_token="+token;
 
     $("#flexigrid").flexigrid({
 		url: filtro,
-		dataType: "json",
+		dataType: "json", 
 		method: 'POST',
 		colModel: [
-			{display:"Nombre",  name:"nombreMedico",  width:300, sortable: true, align:"center"},
-			{display:"Teléfono",  name:"tel",  width:300, sortable: true, align:"center"},
-			{display:"Correo",  name:"correo",  width:300, sortable: true, align:"center"},
-			{display:"Acciones",  name:"",  width:200, sortable: false, align:"center"}
+			{display:"Nombre",  name:"nombre",  width:300, sortable: true, align:"center"},
+			{display:"Telèfono",  name:"des",  width:300, sortable: true, align:"center"},
+			{display:"Correo",  name:"es",  width:300, sortable: true, align:"center"},
+			{display:"Direcciòn",  name:"",  width:200, sortable: false, align:"center"},
+			{display:"Estatus",  name:"",  width:200, sortable: false, align:"center"},
+			{display:"Acciòn",  name:"",  width:200, sortable: false, align:"center"}
 		],
-		sortname: "nombreMedico"
+		sortname: "nombre"
 		,sortorder: "asc"
 		,usepager: true
         ,useRp: false
@@ -28,15 +30,15 @@ $(document).ready(function() {
 
 
 function agregar(id)
-{
+{ 
 console.log(id);
 
 	$.ajax({
-		url: 'doctor/'+id+'/edit',
+		url: 'clinic/'+id+'/edit',
 		type: 'GET',
 		success: function(res){
 			
-			$("#modalForm").children().children().children().children('.modal-title').text('Agregar médico');
+			$("#modalForm").children().children().children().children('.modal-title').text('Agregar especialidad');
 			$("#modalForm").children().children().children('.modal-body').html(res);
 			$("#modalForm").modal('show');
  	
@@ -44,7 +46,7 @@ console.log(id);
 		}
 	});
 
-
+ 
 }
 
 
@@ -52,14 +54,14 @@ function guardar()
 {
 
 
-    $("#frmMedicoRegistro").validate({
+    $("#frmClinicaRegistro").validate({
         submitHandler: function(form){
             $(form).ajaxSubmit({
                 success: function(respuesta){
                 	console.log('esta es'+respuesta);
                     if(!isNaN(respuesta)){   
                         $("#modalForm").modal('hide');
-                         filtrar('frmMedicoRegistro');  
+                         filtrar('frmClinicaRegistro');  
                                           
                     }                     
                         
@@ -77,7 +79,7 @@ function guardar()
         //submitHandler
     }) //validate
     
-    $("#frmMedicoRegistro").submit();   
+    $("#frmClinicaRegistro").submit();   
 	
 
 }
@@ -97,14 +99,14 @@ function confirmar(id)
 {
 	var token = $('#tok').children().val();
 	$.ajax({
-		url: 'doctor/'+id,
+		url: 'clinic/'+id,
 		type: 'DELETE',
 		data: {_token: token},
 		success: function(res){
           	
 
                 $("#modalMensaje").modal('hide');
-                filtrar('frmMedicoRegistro');
+                filtrar('frmClinicaRegistro');
 
             			
                 
@@ -116,7 +118,7 @@ function confirmar(id)
 function filtrar(formulario)
 {
 	var token = $('#tok').children().val();
- 	var filtro="doctor/grid?_token="+token;
+ 	var filtro="clinic/grid?_token="+token;
 
     $("#"+formulario+" :input").each(function(){
 
@@ -131,5 +133,5 @@ function filtrar(formulario)
 	        url: filtro
     }).flexReload();
 
-}
+} 
 

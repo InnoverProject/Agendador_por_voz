@@ -2,8 +2,14 @@
 @section('controles')
 <div class="col-sm-1">
       <a onclick="agregar(0);">
-         <img class="img-circle pull-right" src="plantilla/imagenesControl/add.png" style="width: 50px;height: 50px;" id="im">
+         <img class="img-circle pull-right" id="control1" src="plantilla/imagenesControl/add.png" style="width: 50px;height: 50px;" >
        </a>
+</div>
+<div class="col-sm-1">
+     <a onclick="startArtyom();">
+        <img class="img-circle pull-right" id="control2" src="plantilla/imagenesControl/voz.png" style="width: 50px;height: 50px;" >
+     </a> 
+                              
 </div>
                  
 @endsection

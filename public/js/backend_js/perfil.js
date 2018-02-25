@@ -19,7 +19,7 @@
         ,resizable: false
         ,showToggleBtn: false
         ,rp: 15 
-        ,width: 1200
+        ,width: 400
         ,height: 380
 	});
 //$('#busqueda').hide();

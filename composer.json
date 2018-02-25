@@ -24,12 +24,18 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        
+ "files": [
+            "app/Help/helper.php"
+        ]
+       
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         }
+        
     },
     "extra": {
         "laravel": {

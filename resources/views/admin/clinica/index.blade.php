@@ -2,7 +2,7 @@
 @section('controles')
 <div class="col-sm-1">
       <a onclick="agregar(0);">
-         <img class="img-circle pull-right" id="control1" src="plantilla/imagenesControl/add.png" style="width: 50px;height: 50px;" >
+         <img class="img-circle pull-right" id="control1" src="plantilla/imagenesControl/add.png" style="width: 50px;height: 50px;">
        </a>
 </div>
 <div class="col-sm-1">
@@ -15,7 +15,7 @@
 @endsection
 @section('contenido')
 @section('js')
-<script type="text/javascript" src="{{asset('js/backend_js/medico.js?'.time())}}"></script>
+<script type="text/javascript" src="{{asset('js/backend_js/clinica.js?'.time())}}"></script>
 @endsection
 
                 <!-- ============================================================== -->
@@ -55,7 +55,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-block">
-                                <h4 class="card-title">Médicos</h4>
+                                <h4 class="card-title">Clinica</h4>
                                 <div class="panel panel-info" id="">
                                     <div id="flexigrid" class="">
                                     </div>

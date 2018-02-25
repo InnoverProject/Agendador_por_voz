@@ -56,5 +56,10 @@ class Paciente extends Model
     {
         return $this->hasOne(\App\Antecedente::class, 'id', 'id_paciente');
     }
+
+    public function archivo()
+    {
+        return $this->hasOne(\App\Archivo::class, 'id', 'id_paciente');
+    }
 } 
  

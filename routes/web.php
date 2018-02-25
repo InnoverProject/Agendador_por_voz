@@ -32,23 +32,34 @@ Route::post('especial/update', 'EspecialidadController@update');
 Route::post('patient/grid', 'PacienteController@grid');
 Route::post('patient/store', 'PacienteController@store');
 Route::post('patient/update', 'PacienteController@update');
+Route::post('patient/agregar','PacienteController@agregar');
+Route::post('patient/{id}/archivo','PacienteController@archivo');
+Route::post('patient/{archivo}/file','PacienteController@eliminarArchivo');
+Route::get('patient/{id}/{nombre}/onefile','PacienteController@eliminar');
+Route::get('patient/{id}/recipe','PacienteController@verReceta');
+
+Route::post('clinic/grid', 'ClinicaController@grid');
+Route::post('clinic/store', 'ClinicaController@store');
+Route::post('clinic/update', 'ClinicaController@update');
+
 
 Route::post('profile/grid', 'PerfilController@grid');
 Route::post('profile/store', 'PerfilController@store');
 Route::post('profile/update', 'PerfilController@update');
 
 Route::get('users/{id}/edit', 'UsuarioController@edit');
+Route::get('patient/voz', 'PacienteController@abrirPaciente');
 
 
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/users', 'UsuarioController');
+Route::get('/users', 'UsuarioController@index');
 Route::resource('/doctor', 'MedicoController');
 Route::resource('/especial', 'EspecialidadController');
 Route::resource('/patient', 'PacienteController');
 Route::resource('/profile', 'PerfilController');
-
+Route::resource('/clinic', 'ClinicaController');
 
 
 });

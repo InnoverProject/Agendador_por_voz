@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'id' => '1',
             'nombre' => 'Superusuario',
             'rol' => 'Administrador',
-            'permisos' => 'Todos'
+            'permisos' => 'VER_USUARIO|VER_PERFIL|VER_MEDICO|VER_ESPECIALIDAD|VER_ACCIONES|VER_PACIENTE|VER_AGENDA|VER_PERFIL_MEDICO|VER_CLINICA|VER_EVALUACION|'
            
         ]);
 

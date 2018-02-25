@@ -44,30 +44,28 @@
 <br>
 <div class="input-group">
   
-  <input type="text" class="form-control" name="estatura" id="estatura" placeholder="Estatura">
+  <input type="text" class="form-control" name="tel" id="tel" placeholder="Teléfono">
 </div>
+
+
+<br>
 
 <br>
 <div class="input-group">
-   
-  <input type="text" class="form-control" name="sangre" id="sangre" placeholder="Sangre">
+  <span class="input-group-addon">@</span>
+  <input type="mail" class="form-control" name="correo" id="correo" placeholder="Correo">
 </div>
+
+
+
 
 <br>
 
 <div class="input-group">
   
-  <input type="text" class="form-control" name="tel" id="tel" placeholder="Teléfono">
+  <input type="text" class="form-control" name="fecha" id="fecha" placeholder="Fecha">
 </div>
 
-
-
-<br>
-
-<div class="input-group">
-  <span class="input-group-addon">@</span>
-  <input type="mail" class="form-control" name="correo" id="correo" placeholder="Correo">
-</div>
 <br>
 <div class="input-group">  
       <select name="estatus_id" id="estatus_id" class="form-control input-sm required">

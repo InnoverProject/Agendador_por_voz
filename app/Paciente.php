@@ -40,7 +40,7 @@ class Paciente extends Model
      
        public function clinica()
     {
-        return $this->hasMany(\App\Clinica::class, 'id_clinica', 'id');
+        return $this->hasMany(\App\Clinica::class, 'id', 'id_clinica');
     }
      public function paciente_eval()
     {

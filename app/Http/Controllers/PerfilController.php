@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Perfil;
+use App\Clinica;
 //use App\Perfil;
 use Illuminate\Support\Facades\DB;
 class PerfilController extends Controller
@@ -15,7 +16,11 @@ class PerfilController extends Controller
      */
     public function index()
     { 
-        return view('admin.perfil.index');
+         $dato=Clinica::select('color')->get();
+        foreach ($dato as $colors) {
+            $color=$colors->color;
+        }
+        return view('admin.perfil.index')->with('color',$color);
     }
 
     /**
@@ -106,10 +111,8 @@ class PerfilController extends Controller
                         'cell' => array(
                                 $perfil->nombre,
                                 $perfil->rol,
-                                '<a onclick="agregar('.$perfil->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
-                               
-                                    //Eliminar
-                                    '<a onclick="eliminar('.$perfil->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
+                                '<a onclick="agregar('.$perfil->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-edit fa-2x"></i></span></a>'." ".
+                                    '<a onclick="eliminar('.$perfil->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times fa-2x"></i></span></a>'
                                 )
                     ); # code...
                  

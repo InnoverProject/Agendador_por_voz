@@ -7,6 +7,7 @@ use App\User;
 use App\Medico;
 use App\Perfil;
 use App\Paciente;
+use App\Clinica;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
@@ -23,7 +24,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return view('admin.usuario.index');
+         $dato=Clinica::select('color')->get();
+        foreach ($dato as $colors) {
+            $color=$colors->color;
+        }
+        return view('admin.usuario.index')->with('color',$color);
     }
 
     /**
@@ -145,7 +150,7 @@ class UsuarioController extends Controller
             } else {
                 echo $e;
             }
-        }
+        } 
         
     }
 
@@ -215,12 +220,9 @@ class UsuarioController extends Controller
                         'cell' => array(
                                 $usuario->nombreusuario,
                                 $usuario->nombreperfil,
-
-                                '<a onclick="agregar('.$usuario->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
-                               
-                                    //Eliminar
-                                    '<a onclick="eliminar('.$usuario->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
-                                )
+                                '<a onclick="agregar('.$usuario->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-edit fa-2x"></i></span></a>'." ".
+                                    '<a onclick="eliminar('.$usuario->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times fa-2x"></i></span></a>'
+                                ) 
                     ); # code...
                  
               

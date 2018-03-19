@@ -5,7 +5,7 @@ startArtyom();
 						 });
 
 	// $(document).ready(function() {
-
+/*
 		$('#control1').mouseover(function() {
 			artyom.say("Botón, agregar")
 		});
@@ -25,23 +25,56 @@ startArtyom();
 		$('#control2').mouseout(function() {
 			artyom.shutUp();
 		});
-
+*/
 		//El sistema responde
 		artyom.addCommands([
 			{
-				indexes:["buenos días",'quién es tu creador','Saluda a mis seguidores','me voy'],
+				indexes:["Hola","saluda","gracias","descansa","escucha","toma dictado","es todo"],
 				action: function(i){
 					if (i==0) {
-						artyom.say("Hola César, buenos dias");
+						var f=new Date();
+						var hora=f.getHours();
+						if (hora<12) {
+						artyom.say("Hola, buenos dias");	
+						}
+						if (f.getHours()>12) {
+						artyom.say("Hola, buenas tardes");	
+						}
+						
 					}
 					if (i==1) {
-						artyom.say("Tú, eres mi creador");
+						artyom.say("Que tal, soy un asistente personal que ayudará a la fácil navegación dentro de la aplicación. Espero que ésta presentación sea de su agrado");
 					}
 					if (i==2) {
-						artyom.say("Hola gente, espero les este yendo muy bien y que este tutorial les ayude de mucho. Saludos");
+						artyom.say("Hasta luego.");
+					    stopArtyom();
 					}
 					if (i==3) {
-						artyom.say("Adios");
+						artyom.say("Muy bien.");
+						artyom.dontObey();
+					}
+					if (i==4) {
+						artyom.say("Lo escucho.");
+						//artyom.dontObey();
+					}
+					if (i==5) {
+						artyom.say("Estoy lista, para el dictado");
+						//artyom.dontObey();
+						artyom.redirectRecognizedTextOutput(function(recognized,isFinal){
+    if(isFinal){
+        console.log("Texto final reconocido: " + recognized);
+    }else{
+    	if (recognized=="es todo") {
+    		startArtyom();
+    	}else{
+    	$('#correo').val(recognized);	
+    	}
+        
+    }
+});
+					
+
+//UserDictation.start();
 					}
 				}
 			},
@@ -52,53 +85,42 @@ startArtyom();
 				}
 			},
 			{
-				indexes:['abre usuarios','abre especialidad','abre pacientes','abre perfiles','abre clínica','ya no gracias','captura'],
+				indexes:['abre usuarios','abre especialidad','abre pacientes','abre perfiles','abre clínica','captura','guarda','gracias por tu ayuda'],
 				action: function(i){
 					if (i==0) {
 						artyom.say("Abriendo el módulo de usuarios");
-						artyom.dontObey();
-						location.href ="http://localhost:8080/SmartAgenda/public/users";
 						
-
+						location.href ="http://localhost:8080/SmartAgenda/public/users";
+					
 						
 					}
 					if (i==1) {
-						artyom.say("Abriendo el módulo de medicos");
-                         location.href ="http://localhost:8080/SmartAgenda/public/doctor";
+						artyom.say("Abriendo el módulo de especialidad");
+                         location.href ="http://localhost:8080/SmartAgenda/public/especial";
                        
                          //startArtyom();
 		
 					}
 					if (i==2) {
-						artyom.say("Abriendo el módulo de especialidades");
-						location.href ="http://localhost:8080/SmartAgenda/public/especial";
-						
-						//startArtyom();
-					}
-					if (i==3) {
 						artyom.say("Abriendo el módulo de pacientes");
 						location.href ="http://localhost:8080/SmartAgenda/public/patient";
 						
 						//startArtyom();
 					}
-					if (i==4) {
+					if (i==3) {
 						artyom.say("Abriendo el módulo de perfiles");
 						location.href ="http://localhost:8080/SmartAgenda/public/profile";
 						
 						//startArtyom();
 					}
-					if (i==5) {
+					if (i==4) {
 						artyom.say("Abriendo el módulo de clinica");
 						location.href ="http://localhost:8080/SmartAgenda/public/clinic";
-					
-						//startArtyom();
-					}
-					if (i==6) {
-						artyom.say("Muy bien, señor César, hasta pronto");
 						
 						//startArtyom();
 					}
-					if (i==7) {
+					
+					if (i==5) {
 						artyom.say("Muy bien");
 						//location.href ="http://localhost:8080/SmartAgenda/public/especial";
 					$.ajax({ 
@@ -129,8 +151,13 @@ startArtyom();
 								
 							}
 							//$("#frmEspecialidadRegistro").find('#nombre').val('Medico general');
-							$("#frmEspecialidadRegistro").find('#desc').val('enfermedades en general');
-							$("#frmEspecialidadRegistro").find('#estatus').val(1);
+						     $("#frmEspecialidadRegistro").find('#desc').val('medician en general')
+                               
+
+						    $("#frmEspecialidadRegistro").find('#estatus').val(1)
+						       
+							
+						
 							$("#modalForm").modal('show');
 				 	
 							//$('#perfil_id').val(perfil_id);
@@ -140,6 +167,42 @@ startArtyom();
 
 
 						//startArtyom();
+					}
+					if (i==6) {
+
+						$("#frmEspecialidadRegistro").validate({
+        submitHandler: function(form){
+            $(form).ajaxSubmit({
+                success: function(respuesta){
+                	console.log('esta es'+respuesta);
+                    if(!isNaN(respuesta)){   
+                        $("#modalForm").modal('hide');
+                         filtrar('frmEspecialidadRegistro');
+                         artyom.say("Ha sido guardado correctamente.");  
+                                          
+                    }                     
+                        
+                } //success
+                ,error: function(respuesta){
+						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
+			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
+			$("#modalMensaje").modal('show');
+                } //error
+            }) //ajaxSubmit
+       
+        }
+
+        //submitHandler
+    }) //validate
+    
+    $("#frmEspecialidadRegistro").submit();   
+	
+
+					}
+					if (i==7) {
+						artyom.say('Adiós');
+						stopArtyom();
 					}
 
 
@@ -169,7 +232,7 @@ startArtyom();
 			artyom.initialize({
 				lang: "es-ES",
 				continuous:true,// Reconoce 1 solo comando y para de escuchar
-				 obeyKeyword:"yoi",
+				obeyKeyword:"escucha",
 	            listen:true, // Iniciar !
 	            debug:true, // Muestra un informe en la consola
 	            speed:1 // Habla normalmente
@@ -214,3 +277,17 @@ startArtyom();
                 alert("Your browser cannot talk !");
             }
         });
+
+var UserDictation = artyom.newDictation({
+    continuous:true, // Activar modo continuous if HTTPS connection
+    onResult:function(text){
+        // Mostrar texto en consola
+        $('#correo').val(text);
+    },
+    onStart:function(){
+        console.log("Dictado iniciado");
+    },
+    onEnd:function(){
+        alert("Dictado detenido por el usuario");
+    }
+});

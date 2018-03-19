@@ -16,7 +16,11 @@ class ClinicaController extends Controller
      */
     public function index()
     {
-        return view('admin.clinica.index');
+         $dato=Clinica::select('color')->get();
+        foreach ($dato as $colors) {
+            $color=$colors->color;
+        }
+        return view('admin.clinica.index')->with('color',$color);
     }
  
     /**
@@ -51,7 +55,7 @@ class ClinicaController extends Controller
         $clinica->ciudad=$request->ciudad;
         $clinica->region=$request->region;
         $clinica->cod_postal=$request->cp;
-        $clinica->color=$request->color;
+        $clinica->color=$request->colorE;
         $clinica->estatus=$request->estatus;
         $clinica->save();
         echo $clinica->id;
@@ -113,10 +117,8 @@ class ClinicaController extends Controller
                                 $clinica->email,
                                 $clinica->direccion,
                                 (($clinica->estatus==1)? 'Activo' : 'Inactivo'),
-                                '<a onclick="agregar('.$clinica->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
-                               
-                                    //Eliminar
-                                    '<a onclick="eliminar('.$clinica->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
+                                '<a onclick="agregar('.$clinica->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-edit fa-2x"></i></span></a>'." ".
+                                    '<a onclick="eliminar('.$clinica->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times fa-2x"></i></span></a>'
                                 )
                     ); # code...
                  
@@ -181,7 +183,7 @@ class ClinicaController extends Controller
         $clinica->ciudad=$request->ciudad;
         $clinica->region=$request->region;
         $clinica->cod_postal=$request->cp;
-        $clinica->color=$request->color;
+        $clinica->color=$request->colorE;
         $clinica->estatus=$request->estatus;
         $clinica->save();
         echo $clinica->id; 

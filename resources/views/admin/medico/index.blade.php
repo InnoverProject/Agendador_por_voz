@@ -37,8 +37,15 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <a onclick="filtrar('frmUsuarioRegistro');" class="btn btn-default btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Filtrar</a>
-                           
+                            <form id="archivo" class="form-horizontal" role="form" action="{{ url('doctor/importar') }}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+                               {{ csrf_field() }}
+                                 <input class="btn btn-primary" type="file" name="file" id="file" onchange="importa();"> 
+                                 
+                            </form>
+                    
+                          
                         </div>
+
                     </div>
                             </div>
                         </div>
@@ -50,19 +57,21 @@
                 </div>
                 <!-- Row -->
                 <!-- Row -->
-                <div class="row ">
+                <div class="row">
                     <!-- column -->
+                    
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-block">
                                 <h4 class="card-title">Médicos</h4>
                                 <div class="panel panel-info" id="">
-                                    <div id="flexigrid" class="">
+                                    <div id="flexigrid" class="" style="font-size: 15px;">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form>
                     <!-- column -->
                 </div>
                 <!-- Row -->
@@ -80,7 +89,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center">
+            <footer class="footer text-center" id="foot" style="background-color: {{$color}};">
                 © 2018 Innover
             </footer>
 

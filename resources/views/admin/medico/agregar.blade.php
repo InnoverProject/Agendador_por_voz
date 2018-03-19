@@ -1,9 +1,9 @@
-<form id="frmMedicoRegistro" class="form-horizontal" role="form" action="{{ url('doctor/store') }}" method="POST" accept-charset="utf-8">
-	{{ csrf_field() }}
+<form id="frmMedicoRegistro" class="form-horizontal" role="form" action="{{ url('doctor/store') }}" method="post" accept-charset="utf-8">
+	{{ csrf_field() }} 
 
  <div class="col-md-12"  style="overflow: auto; width: 100%; max-height: 1000px; overflow-x: hidden;  height: 370px;">
- 
-   <img src="" class="img-responsive" style="height: 200px;width: 200px;">
+  
+   <img  class="img-responsive" style="height: 200px;width: 200px;" id="imagenes">
  <br>
  <br>
    <input type="file" name="foto" id="foto">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Especialidad;
+use App\Clinica;
+
 
 //use App\Perfil;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +19,11 @@ class EspecialidadController extends Controller
      */
     public function index()
     {
-        return view('admin.especialidad.index');
+         $dato=Clinica::select('color')->get();
+        foreach ($dato as $colors) {
+            $color=$colors->color;
+        }
+        return view('admin.especialidad.index')->with('color',$color);
     }
 
     /**
@@ -136,10 +142,8 @@ class EspecialidadController extends Controller
                                 $especialidad->nombre,
                                 $especialidad->descripcion,
                                 (($especialidad->estatus==1)? 'Activo' : 'Inactivo'),
-                                '<a onclick="agregar('.$especialidad->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
-                               
-                                    //Eliminar
-                                    '<a onclick="eliminar('.$especialidad->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
+                                '<a onclick="agregar('.$especialidad->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-edit fa-2x"></i></span></a>'." ".
+                                    '<a onclick="eliminar('.$especialidad->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times fa-2x"></i></span></a>'
                                 )
                     ); # code...
                  

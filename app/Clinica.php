@@ -20,7 +20,7 @@ class Clinica extends Model
 
      public function paciente()
     {
-        return $this->hasOne(\App\Paciente::class, 'id', 'id_clinica');
+        return $this->hasOne(\App\Paciente::class, 'id_clinica', 'id');
     }
 
        public function medico()

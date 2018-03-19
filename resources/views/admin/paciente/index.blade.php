@@ -59,7 +59,7 @@
                             <div class="card-block">
                                 <h4 class="card-title">Pacientes</h4>
                                 <div class="panel panel-info" id="">
-                                    <div id="flexigrid" class="">
+                                    <div id="flexigrid" class="" style="font-size: 15px;">
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center">
+            <footer class="footer text-center" id="foot" style="background-color: {{$color}};">
                 © 2018 Innover
             </footer>
 

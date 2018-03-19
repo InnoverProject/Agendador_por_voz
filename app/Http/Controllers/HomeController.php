@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Clinica;
+
+//use App\Perfil;
+use Illuminate\Support\Facades\DB; 
+
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Create a new controller ins tance.
      *
      * @return void
      */
@@ -23,6 +28,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('layouts.index');
+
+        $dato=Clinica::select('color')->get();
+        foreach ($dato as $colors) {
+            $color=$colors->color;
+        }
+        return view('layouts.index')->with('color',$color);
     }
 }

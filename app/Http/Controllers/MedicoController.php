@@ -8,6 +8,7 @@ use App\Medico;
 use App\Clinica;
 //use App\Perfil;
 use Illuminate\Support\Facades\DB;
+use Excel;
 //use Illuminate\Support\Facades\Crypt;
 
 class MedicoController extends Controller
@@ -19,7 +20,11 @@ class MedicoController extends Controller
      */
     public function index()
     {
-        return view('admin.medico.index');
+         $dato=Clinica::select('color')->get();
+        foreach ($dato as $colors) {
+            $color=$colors->color;
+        }
+        return view('admin.medico.index')->with('color',$color);
     }
 
     /**
@@ -105,7 +110,7 @@ public function grid(Request $request){
 //            dd($users);
             
             $data = array();
-            $data['page'] = $page;
+            $data['page'] = $page; 
             $data['total'] = $total_records;
             $data['rows'] = array();
             foreach ($medicos as $medico) { 
@@ -113,13 +118,13 @@ public function grid(Request $request){
                      $data['rows'][] = array(
                         'id' => $medico->id,
                         'cell' => array(
-                                $medico->nombreusuario,
+                                $medico->nombreusuario, 
                                 $medico->telefono,
                                 $medico->correo,
-                                '<a onclick="agregar('.$medico->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-pencil"></i></span></a>'.
-                               
-                                    //Eliminar
-                                    '<a onclick="eliminar('.$medico->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times"></i></span></a>'
+                                '<a onclick="agregar('.$medico->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-edit fa-2x"></i></span></a>'." ".
+                                    '<a onclick="eliminar('.$medico->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times fa-2x"></i></span></a>'." ".
+                                    '<a onclick="perfilMed('.$medico->id.')" class="btn btn-sm btn-danger" title="Perfil médico" style="background-color:#2E2EFE;"><span><i class="fas fa-folder fa-2x"></i></span></a>'
+
                                 )
                     ); # code...
                  
@@ -182,7 +187,7 @@ public function grid(Request $request){
         $medico->direccion=$request->dir;
         $medico->edad=$request->edad;
         $medico->sexo=$request->sex;
-        $medico->telefono=$request->tel;
+        $medico->telefono=$request->tel; 
         $medico->correo=$request->correo;
         $medico->estatus=$request->estatus;
         $medico->id_especialidad=$request->especialidad;
@@ -228,6 +233,43 @@ public function grid(Request $request){
                from medico where estatus=1";
 
     return $consulta;           
+
+    }
+
+    public function importar(Request $request){
+        $archivo=$request->file;
+
+      Excel::load($archivo, function($reader) {
+
+         $result=$reader->get();
+         //echo $result;
+        
+         foreach ($result as $key ) {
+        //print_r($value->nombre);
+        
+        $medico=new Medico;
+    
+        $medico->nombre=$key->nombre;
+        $medico->apellido_pat=$key->apellido_paterno;
+        $medico->apellido_mat=$key->apellido_materno;
+        $medico->direccion=$key->direccion;
+        $medico->telefono=$key->telefono;
+        $medico->edad=$key->edad;
+        $medico->sexo=$key->sexo;
+        $medico->correo=$key->correo;
+        $medico->estatus=1;
+        $medico->id_especialidad=$key->especialidad;
+        $medico->id_clinica=$key->clinica;
+        $medico->save();
+        echo $medico->id;
+        
+       //echo $key->apellido_paterno;
+             
+         }
+
+
+});
+
 
     }
 

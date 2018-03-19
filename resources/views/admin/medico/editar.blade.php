@@ -1,4 +1,4 @@
-<form id="frmMedicoRegistro" class="form-horizontal" role="form" action="{{ url('doctor/update') }}" method="POST" accept-charset="utf-8">
+<form id="frmMedicoRegistro" class="form-horizontal" role="form" action="{{ url('doctor/update') }}" method="post" accept-charset="utf-8">
   {{ csrf_field() }}
 @foreach($medicos as $medico)
  <div class="col-md-12"  style="overflow: auto; width: 100%; max-height: 1000px; overflow-x: hidden;  height: 370px;">

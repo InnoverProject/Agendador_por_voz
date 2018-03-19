@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>SmartAgenda</title>
+    <title >SmartAgenda</title>
     <!-- Bootstrap Core CSS -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -18,9 +18,12 @@
     <!-- You can change the theme colors from here -->
     <link href="plantilla/css/colors/blue.css" id="theme" rel="stylesheet">
     <link href="{{ asset('css/flexigridcss/flexigrid.css?'.time()) }}" rel="stylesheet">
+
+    
     <link href="{{ asset('css/estilosPropios/estiloModal.css?'.time()) }}" rel="stylesheet">
-      
+
     <link href="{{ asset('js/dropzone/dropzone.css?'.time()) }}" rel="stylesheet">
+     <link href="{{ asset('js/fullcalendar/fullcalendar.css?'.time()) }}" rel="stylesheet">
 
      
 
@@ -39,7 +42,7 @@
     <div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-    </div>
+    </div> 
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -48,22 +51,22 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="topbar">
-            <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+            <nav class="navbar top-navbar navbar-toggleable-sm navbar-light " id="superior" style="background-color: {{$color}};">
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-header">
+                <div class="navbar-header" id="logo" style="background-color: {{$color}};">
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="assets/images/logo.png" alt="homepage" class="dark-logo" />
                             
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span>
+                        <span style="color:#4f57f5;">
                             <!-- dark Logo text -->
                            SmartAgenda
                         </span>
@@ -124,21 +127,21 @@
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        <aside class="left-sidebar">
+        <aside class="left-sidebar" >
             <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
+            <div class="scroll-sidebar" id="side" style="background-color: {{$color}};">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
+                    <ul id="sidebarnav" >
                         <li>
 
-                            <a href="index.html" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Dashboard</a>
+                            <a href="index.html" class="waves-effect" id="menu" style="background-color: {{$color}};"><i class="fa fa-home m-r-10" aria-hidden="true"></i></i>Home</a>
                   
                         </li>
                         @if(tienePermiso('VER_USUARIO'))
                         <li>
 
-                            <a href="{{url('/users')}}" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Usuarios</a>
+                            <a href="{{url('/users')}}" class="waves-effect" id="menu2" style="background-color: {{$color}};"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Usuarios</a>
                         </li>
                         @else
 
@@ -146,34 +149,40 @@
                         @if(tienePermiso('VER_MEDICO'))
 
                         <li>
-                            <a href="{{url('/doctor')}}" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Médicos</a>
+                            <a href="{{url('/doctor')}}" class="waves-effect" id="menu3" style="background-color: {{$color}};"><i class="fas fa-user-md m-r-10"></i>Médicos</a>
                         </li>
                         @else
                         @endif
                         @if(tienePermiso('VER_ESPECIALIDAD'))
 
                         <li>
-                            <a href="{{url('/especial')}}" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Especialidad</a>
+                            <a href="{{url('/especial')}}" class="waves-effect" id="menu4" style="background-color: {{$color}};"><i class="fa fa-tasks m-r-10" aria-hidden="true"></i>Especialidad</a>
                         </li>
                         @else
                         @endif
                         @if(tienePermiso('VER_PACIENTE'))
 
                         <li>
-                            <a href="{{url('patient')}}" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Pacientes</a>
+                            <a href="{{url('patient')}}" class="waves-effect" id="menu5" style="background-color: {{$color}};"><i class="fa fa-plus-square m-r-10" aria-hidden="true"></i>Pacientes</a>
                         </li>
                         @else
                         @endif
                         @if(tienePermiso('VER_PERFIL'))
 
                         <li>
-                            <a href="{{url('profile')}}" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Perfiles</a>
+                            <a href="{{url('profile')}}" class="waves-effect" id="menu6" style="background-color: {{$color}};"><i class="fa fa-id-card m-r-10" aria-hidden="true"></i>Perfiles</a>
                         </li>
                         @else
                         @endif
                         @if(tienePermiso('VER_CLINICA'))
                         <li>
-                            <a href="{{url('clinic')}}" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Clìnica</a>
+                            <a href="{{url('clinic')}}" class="waves-effect" id="menu7" style="background-color: {{$color}};"><i class="fas fa-hospital m-r-10"></i>Clìnica</a>
+                        </li>
+                         @else
+                        @endif
+                         @if(tienePermiso('VER_AGENDA'))
+                        <li>
+                            <a href="{{url('agenda')}}" class="waves-effect" id="menu8" style="background-color: {{$color}};"><i class="fa fa-address-book  m-r-10" aria-hidden="true"></i>Agenda</a>
                         </li>
                          @else
                         @endif
@@ -181,7 +190,7 @@
                     </ul>
 
                     <div class="text-center m-t-30">
-                        <a href="https://wrappixel.com/templates/monsteradmin/" class="btn btn-danger"> Upgrade to Pro</a>
+                        
                     </div>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -225,6 +234,9 @@
     <script src="assets/plugins/jquery/jquery-3.3.1.min.js" ></script>
       <script src="{{ asset('js/speech/artyom.min.js?'.time()) }}" type="text/javascript"></script>
      <script src="{{ asset('js/speech/artyomCommands.js?'.time()) }}" type="text/javascript"></script>
+     <script src="{{ asset('js/moment/moment.js?'.time()) }}" type="text/javascript"></script>
+     <script src="{{ asset('js/fullcalendar/fullcalendar.js?'.time()) }}" type="text/javascript"></script>
+     <script src="{{ asset('js/fullcalendar/locale/es.js?'.time()) }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ asset('js/backend_js/asistente.js?'.time()) }}" ></script>
 <script type="text/javascript" src="{{ asset('js/dropzone/dropzone.js?'.time()) }}"></script>
     <script src="{{ asset('assets/plugins/jquery_validation_1_13_0/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
@@ -271,7 +283,7 @@
 
 <div id="modalForm" class="modal fade">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+    <div class="modal-content"> 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title">Modal titledg</h4>
@@ -313,10 +325,46 @@
         <p>One fine body…</p>
       </div>
       <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" onclick="guardarReceta();">Guardar</button>
          </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div><
+</div>
+<div id="normalModal4" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal titledg</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" onclick="guardarConsulta();">Guardar</button>
+         </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div id="normalModal5" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal titledg</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" onclick="guardarPerfilMed();">Guardar</button>
+         </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
 
 
 

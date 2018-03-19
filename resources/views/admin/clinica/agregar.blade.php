@@ -47,7 +47,8 @@
 </div>
 <br>
 <div class="input-group">
-  <input type="text" class="form-control" name="color" id="color" placeholder="Color">
+  <input type="text" id="color" class="btn btn-primary">
+  <input type="hidden" class="form-control" name="colorE" id="colorE" placeholder="Color" value="">
 </div>
 <br>
 <div class="input-group">  

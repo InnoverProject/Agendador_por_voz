@@ -136,7 +136,7 @@ class CreateUsersTable extends Migration
                 $table->string('apellido_pat');
                 $table->string('apellido_mat');
                 $table->integer('edad');
-                $table->integer('talla');
+                $table->decimal('talla',5,2);
                 $table->decimal('peso_actual',5,2);
                 $table->string('consulta_por');
                 $table->string('examen_fisico');

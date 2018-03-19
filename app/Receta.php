@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Receta extends Model
 {
-     use ModelHelper;
+    // use ModelHelper;
 
    protected $table='receta';
    public $primaryKey = 'id';
    public $timestamps = true;
 
    protected $fillable = [
-        'medicamento','indicacion','descripcion','observacion','id_medico','id_paciente'
+      'indicacion','fecha','id_medico','id_paciente'
     ];
  
 

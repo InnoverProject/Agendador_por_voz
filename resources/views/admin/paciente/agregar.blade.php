@@ -16,7 +16,7 @@
   
   <input type="text" class="form-control" name="ape_mat" id="ape_mat" placeholder="Apellido materno">
 </div>
-<br>
+<br> 
 <div class="input-group">
   
   <input type="text" class="form-control" name="dir" id="dir" placeholder="Dirección">

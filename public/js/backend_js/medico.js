@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var token = $('#tok').children().val();
  	var filtro="doctor/grid?_token="+token;
 
-    $("#flexigrid").flexigrid({
+    $("#flexigrid").flexigrid({ 
 		url: filtro,
 		dataType: "json",
 		method: 'POST',
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 function agregar(id)
 {
-console.log(id);
+
 
 	$.ajax({
 		url: 'doctor/'+id+'/edit',
@@ -43,11 +43,35 @@ console.log(id);
 			//$('#perfil_id').val(perfil_id);
 		}
 	});
+/*	
+$(function() {
+     $('#foto').change(function(e) { 
+       //alert('aqui');
+         addImage(e);  
+        });
 
-
+        function addImage(e){
+         var file = e.target.files[0],
+         imageType = /image.*/;
+         /*console.log(file);
+       
+         if (!file.type.match(imageType))
+          return;
+     
+         var reader = new FileReader();
+         reader.onload = fileOnload;
+         reader.readAsDataURL(file);
+        }
+     
+        function fileOnload(e) {
+         var result=e.target.result;
+         $('#imagenes').attr("src",result);
+        }
+       });
+*/
 }
 
-
+ 
 function guardar()
 {
 
@@ -67,14 +91,14 @@ function guardar()
                 ,error: function(respuesta){
 						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
 			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
-			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+res+'</a>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
 			$("#modalMensaje").modal('show');
                 } //error
             }) //ajaxSubmit
        
         }
 
-        //submitHandler
+        //submitHandler 
     }) //validate
     
     $("#frmMedicoRegistro").submit();   
@@ -128,8 +152,97 @@ function filtrar(formulario)
     });
 
     $("#flexigrid").flexOptions({
-	        url: filtro
+	        url: filtro 
     }).flexReload();
 
 }
 
+function importa(){
+$("#archivo").validate({
+        submitHandler: function(form){
+            $(form).ajaxSubmit({
+                success: function(respuesta){
+                    //console.log('esta es'+respuesta);
+                    if(!isNaN(respuesta)){   
+                        
+                         filtrar('frmMedicoRegistro');  
+                                          
+                    }                     
+                        
+                } //success
+                ,error: function(respuesta){
+                        $("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
+            $("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
+            $("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
+            $("#modalMensaje").modal('show');
+                } //error
+            }) //ajaxSubmit
+       
+        }
+
+        //submitHandler
+    }) //validate
+    
+    $("#archivo").submit(); 
+
+
+}
+
+
+ function guardarPerfilMed() 
+{
+
+
+    $("#frmMedicoPerfil").validate({
+        submitHandler: function(form){
+            $(form).ajaxSubmit({
+                success: function(respuesta){
+                    console.log('esta es'+respuesta);
+                    if(!isNaN(respuesta)){   
+                        $("#normalModal5").modal('hide');
+                         //filtrar('frmMedicoRegistro');  
+                                          
+                    }                     
+                        
+                } //success
+                ,error: function(respuesta){
+                        $("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
+            $("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
+            $("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
+            $("#modalMensaje").modal('show');
+                } //error
+            }) //ajaxSubmit
+       
+        }
+
+        //submitHandler
+    }) //validate
+    
+    $("#frmMedicoPerfil").submit();   
+    
+
+}
+ 
+
+
+
+function perfilMed(id){
+
+   $.ajax({
+        url: 'doctor/'+id+'/profile',
+        type: 'GET',
+        success: function(res){
+         
+
+            $("#normalModal5").children().children().children().children('.modal-title').text('Agregar perfil médico');
+            $("#normalModal5").children().children().children('.modal-body').html(res);
+
+            $("#normalModal5").modal('show');
+
+    
+            //$('#perfil_id').val(perfil_id);
+        }
+    });
+}
+ 
+ 

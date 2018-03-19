@@ -67,7 +67,7 @@ function guardar()
                 ,error: function(respuesta){
 						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
 			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
-			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+res+'</a>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
 			$("#modalMensaje").modal('show');
                 } //error
             }) //ajaxSubmit

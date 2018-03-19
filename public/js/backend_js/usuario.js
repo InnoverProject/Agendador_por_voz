@@ -16,7 +16,7 @@ $(document).ready(function() {
 		,usepager: true
         ,useRp: false
         ,singleSelect: true
-        ,resizable: false
+        ,resizable: true
         ,showToggleBtn: false
         ,rp: 15
         ,width: 400
@@ -50,7 +50,7 @@ console.log(id);
 function guardar()
 {
 	var mensaje="";
-    if ($('#medicoId').val()==""||$('#pacienteId').val()=="") {
+    if ($('#medicoId').val()==""&&$('#pacienteId').val()=="") {
        $("#alertcontra").empty();
 		$("#alertcontra").removeClass('hide');
 		 mensaje="<strong>Alerta!</strong> Debes elegir un médico ó un paciente";
@@ -79,7 +79,7 @@ function guardar()
                 ,error: function(respuesta){
 						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
 			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
-			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+res+'</a>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
 			$("#modalMensaje").modal('show');
                 } //error
             }) //ajaxSubmit
@@ -98,7 +98,7 @@ function guardar()
 		
 	}
 
-}
+} 
 
 
 function eliminar(id)
@@ -109,12 +109,12 @@ function eliminar(id)
 		'<a class="btn btn-danger" onclick="confirmar('+id+');">Confirmar</a>');
 			$("#modalMensaje").modal('show');
 	       
-}
+} 
 
 function confirmar(id)
 {
 	var token = $('#tok').children().val();
-	$.ajax({
+	$.ajax({ 
 		url: 'users/'+id,
 		type: 'DELETE',
 		data: {_token: token},

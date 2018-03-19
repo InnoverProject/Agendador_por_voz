@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perfil_medico extends Model
 {
-    use ModelHelper;
+
 
    protected $table='perfil_medico';
    public $primaryKey = 'id';

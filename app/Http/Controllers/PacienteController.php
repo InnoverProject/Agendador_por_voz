@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Paciente;
 use App\Medico;
 use App\Archivo;
+use App\Perfil_medico;
+use App\Clinica;
 use Illuminate\Support\Facades\Auth;
 //use App\Perfil;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +23,11 @@ class PacienteController extends Controller
      */
     public function index() 
     {
-        return view('admin.paciente.index');
+         $dato=Clinica::select('color')->get();
+        foreach ($dato as $colors) {
+            $color=$colors->color;
+        }
+        return view('admin.paciente.index')->with('color',$color);
     }
 
     /**
@@ -115,16 +121,17 @@ class PacienteController extends Controller
 
                      $data['rows'][] = array(
                         'id' => $paciente->id,
-                         'cell' => array(
+                         'cell' => array( 
                                 $paciente->nombreusuario,
                                 $paciente->telefono, 
                                 $paciente->correo,
-                                $paciente->estatus,
+                                (($paciente->estatus==1)?'Activo' :'Inactivo' ),
                                 '<a onclick="agregar('.$paciente->id.')" class="btn btn-sm btn-warning" title="Editar"><span><i class="fa fa-edit fa-2x"></i></span></a>'." ".
                                     '<a onclick="eliminar('.$paciente->id.')" class="btn btn-sm btn-danger" title="Eliminar"><span><i class="fa fa-times fa-2x"></i></span></a>'." ".
                                     '<a onclick="lista('.$paciente->id.')" class="btn btn-info btn-sm" title="Archivos"><span><i class="fas fa-folder-open fa-2x"></i></span></a>'." ".
-                                    '<a onclick="lista('.$paciente->id.')" class="btn btn-success btn-sm" title="Consulta"><span><i class="fas fa-stethoscope fa-2x"></i></span></a>'." ".
-                                    '<a onclick="receta('.$paciente->id.')" class="btn btn-sm" title="Receta" style="background-color:#F4A460;"><span><i class="fas fa-file-alt fa-2x"></i></span></a>'
+                                    '<a onclick="consulta('.$paciente->id.')" class="btn btn-success btn-sm" title="Consulta"><span><i class="fas fa-stethoscope fa-2x"></i></span></a>'." ".
+                                    '<a onclick="receta('.$paciente->id.')" class="btn btn-sm" title="Receta" style="background-color:#F4A460;"><span><i class="fas fa-file-alt fa-2x"></i></span></a>'." ".
+                                    '<a onclick="antecedente('.$paciente->id.')" class="btn btn-sm" title="Antecedentes" style="background-color:#CC2EFA;"><span><i class="fa fa-heartbeat fa-2x" aria-hidden="true"></i></span></a>'
 
                                 )
                     ); # code...
@@ -301,14 +308,27 @@ public function eliminar($id,$nombre){
 }
 
 public function verReceta($id){
-
-return view('admin.paciente.receta');
+$paciente = Paciente::where('id',$id)->get();
+$perfil = Perfil_medico::where('id_medico',Auth::user()->medico->id)->get();
+//dd($perfil);
+//$clinica = Clinica::where('id_medico',Auth::user()->medico->id)->get(); 
+return view('admin.paciente.receta')->with('pacientes',$paciente)->with('perfiles',$perfil)->render();
 
 }
 
 public function abrirPaciente(){
 
 return view('admin.paciente.index');
+
+}
+
+
+public function verConsulta($id){
+$paciente = Paciente::where('id',$id)->get();
+$perfil = Perfil_medico::where('id_medico',Auth::user()->medico->id)->get();
+//dd($perfil);
+//$clinica = Clinica::where('id_medico',Auth::user()->medico->id)->get(); 
+return view('admin.paciente.consulta')->with('pacientes',$paciente)->with('perfiles',$perfil)->render();
 
 }
 

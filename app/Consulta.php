@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Consulta extends Model
 {
-     use ModelHelper;
+    // use ModelHelper;
 
    protected $table='consulta';
    public $primaryKey = 'id';

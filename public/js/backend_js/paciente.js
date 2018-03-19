@@ -78,7 +78,7 @@ function guardar()
                 ,error: function(respuesta){
 						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
 			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
-			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+res+'</a>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
 			$("#modalMensaje").modal('show');
                 } //error
             }) //ajaxSubmit
@@ -238,7 +238,7 @@ $.ajax({
 		}
 	});
 }
-
+ 
 
 function receta(id){
 
@@ -248,10 +248,99 @@ function receta(id){
 		success: function(res){
          
 
-			$("#modalForm").children().children().children().children('.modal-title').text('Agregar médico');
-			$("#modalForm").children().children().children('.modal-body').html(res);
+			$("#normalModal3").children().children().children().children('.modal-title').text('Agregar receta');
+			$("#normalModal3").children().children().children('.modal-body').html(res);
 
-			$("#modalForm").modal('show');
+			$("#normalModal3").modal('show');
+
+ 	
+			//$('#perfil_id').val(perfil_id);
+		}
+	});
+}
+
+
+ function guardarReceta()
+{
+
+
+    $("#frmReceta").validate({
+        submitHandler: function(form){
+            $(form).ajaxSubmit({
+                success: function(respuesta){
+                	console.log('esta es'+respuesta);
+                    if(!isNaN(respuesta)){   
+                        $("#normalModal3").modal('hide');
+                         //filtrar('frmMedicoRegistro');  
+                                          
+                    }                     
+                        
+                } //success
+                ,error: function(respuesta){
+						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
+			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
+			$("#modalMensaje").modal('show');
+                } //error
+            }) //ajaxSubmit
+       
+        }
+
+        //submitHandler
+    }) //validate
+    
+    $("#frmReceta").submit();   
+	
+
+}
+ 
+ function guardarConsulta() 
+{
+
+
+    $("#frmConsulta").validate({
+        submitHandler: function(form){
+            $(form).ajaxSubmit({
+                success: function(respuesta){
+                	console.log('esta es'+respuesta);
+                    if(!isNaN(respuesta)){   
+                        $("#normalModal4").modal('hide');
+                         //filtrar('frmMedicoRegistro');  
+                                          
+                    }                     
+                        
+                } //success
+                ,error: function(respuesta){
+						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
+			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
+			$("#modalMensaje").modal('show');
+                } //error
+            }) //ajaxSubmit
+       
+        }
+
+        //submitHandler
+    }) //validate
+    
+    $("#frmConsulta").submit();   
+	
+
+}
+ 
+
+function consulta(id){
+
+   $.ajax({
+		url: 'patient/'+id+'/query',
+		type: 'GET',
+		success: function(res){
+         
+
+			$("#normalModal4").children().children().children().children('.modal-title').text('Agregar consulta');
+			$("#normalModal4").children().children().children('.modal-body').html(res);
+
+			$("#normalModal4").modal('show');
 
  	
 			//$('#perfil_id').val(perfil_id);

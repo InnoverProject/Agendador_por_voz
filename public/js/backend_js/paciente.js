@@ -346,4 +346,58 @@ function consulta(id){
 			//$('#perfil_id').val(perfil_id);
 		}
 	});
+} 
+
+
+function antecedent(id){
+
+   $.ajax({
+		url: 'patient/'+id+'/antecedent',
+		type: 'GET',
+		success: function(res){
+         
+
+			$("#normalModal6").children().children().children().children('.modal-title').text('Agregar antecedente');
+			$("#normalModal6").children().children().children('.modal-body').html(res);
+
+			$("#normalModal6").modal('show');
+
+ 	
+			//$('#perfil_id').val(perfil_id);
+		}
+	});
+}
+
+ function guardarAntecedente() 
+{
+
+
+    $("#frmAntecedente").validate({
+        submitHandler: function(form){
+            $(form).ajaxSubmit({
+                success: function(respuesta){
+                	console.log('esta es'+respuesta);
+                    if(!isNaN(respuesta)){   
+                        $("#normalModal6").modal('hide');
+                         //filtrar('frmMedicoRegistro');  
+                                          
+                    }                     
+                        
+                } //success
+                ,error: function(respuesta){
+						$("#modalMensaje").children().children().children().children('.modal-title').text('Alerta!');
+			$("#modalMensaje").children().children().children('.modal-body').html('<p><strong>'+respuesta+'</strong></p>');
+			$("#modalMensaje").children().children().children('.modal-footer').html('<a class="btn btn-default" data-dismiss="modal">'+respuesta+'</a>');
+			$("#modalMensaje").modal('show');
+                } //error
+            }) //ajaxSubmit
+       
+        }
+
+        //submitHandler
+    }) //validate
+    
+    $("#frmAntecedente").submit();   
+	
+
 }

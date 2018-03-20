@@ -131,7 +131,7 @@ class PacienteController extends Controller
                                     '<a onclick="lista('.$paciente->id.')" class="btn btn-info btn-sm" title="Archivos"><span><i class="fas fa-folder-open fa-2x"></i></span></a>'." ".
                                     '<a onclick="consulta('.$paciente->id.')" class="btn btn-success btn-sm" title="Consulta"><span><i class="fas fa-stethoscope fa-2x"></i></span></a>'." ".
                                     '<a onclick="receta('.$paciente->id.')" class="btn btn-sm" title="Receta" style="background-color:#F4A460;"><span><i class="fas fa-file-alt fa-2x"></i></span></a>'." ".
-                                    '<a onclick="antecedente('.$paciente->id.')" class="btn btn-sm" title="Antecedentes" style="background-color:#CC2EFA;"><span><i class="fa fa-heartbeat fa-2x" aria-hidden="true"></i></span></a>'
+                                    '<a onclick="antecedent('.$paciente->id.')" class="btn btn-sm" title="Antecedentes" style="background-color:#CC2EFA;"><span><i class="fa fa-heartbeat fa-2x" aria-hidden="true"></i></span></a>'
 
                                 )
                     ); # code...
@@ -331,6 +331,16 @@ $perfil = Perfil_medico::where('id_medico',Auth::user()->medico->id)->get();
 return view('admin.paciente.consulta')->with('pacientes',$paciente)->with('perfiles',$perfil)->render();
 
 }
+
+public function verAntecedente($id){
+$paciente = Paciente::where('id',$id)->get();
+//$perfil = Perfil_medico::where('id_medico',Auth::user()->medico->id)->get();
+//dd($perfil);
+//$clinica = Clinica::where('id_medico',Auth::user()->medico->id)->get(); 
+return view('admin.paciente.antecedente')->with('pacientes',$paciente)->render();
+
+}
+
 
 
 }

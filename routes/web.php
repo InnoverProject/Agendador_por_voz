@@ -38,6 +38,7 @@ Route::post('patient/{id}/archivo','PacienteController@archivo');
 Route::post('patient/{archivo}/file','PacienteController@eliminarArchivo');
 Route::get('patient/{id}/{nombre}/onefile','PacienteController@eliminar');
 Route::get('patient/{id}/recipe','PacienteController@verReceta');
+Route::get('patient/{id}/antecedent','PacienteController@verAntecedente');
 Route::get('patient/{id}/query','PacienteController@verConsulta');
 Route::get('doctor/{id}/profile','PerfilMedicoController@verPerfil');
 
@@ -47,6 +48,7 @@ Route::post('clinic/update', 'ClinicaController@update');
 Route::post('receta/store', 'RecetaController@store');
 Route::post('consulta/store', 'ConsultaController@store');
 Route::post('perfilMed/store', 'PerfilMedicoController@store');
+Route::post('antecedent/store', 'AntecedenteController@store');
 //Route::post('receta/update', 'RecetaController@update');
 
 Route::post('profile/grid', 'PerfilController@grid');

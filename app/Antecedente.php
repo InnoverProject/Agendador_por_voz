@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Antecedente extends Model
 {
-     use ModelHelper;
+     //use ModelHelper;
 
    protected $table='antecedente';
    public $primaryKey = 'id';

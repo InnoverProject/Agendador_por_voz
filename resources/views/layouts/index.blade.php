@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" >
     <title >SmartAgenda</title>
     <!-- Bootstrap Core CSS -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +21,7 @@
 
     
     <link href="{{ asset('css/estilosPropios/estiloModal.css?'.time()) }}" rel="stylesheet">
+    
 
     <link href="{{ asset('js/dropzone/dropzone.css?'.time()) }}" rel="stylesheet">
      <link href="{{ asset('js/fullcalendar/fullcalendar.css?'.time()) }}" rel="stylesheet">
@@ -361,6 +362,23 @@
       <div class="modal-footer">
          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <button class="btn btn-primary" onclick="guardarPerfilMed();">Guardar</button>
+         </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div id="normalModal6" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Modal titledg</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" onclick="guardarAntecedente();">Guardar</button>
          </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

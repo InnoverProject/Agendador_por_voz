@@ -4,6 +4,21 @@ startArtyom();
 
 						 });
 
+
+/*
+function onTecla(e)
+
+	{	
+		var num = e.keyCode;
+		var letra=String.fromCharCode(num);
+		artyom.say(String(letra));
+		
+
+	}
+ 
+	document.onkeydown = onTecla;
+	if(document.all)document.captureEvents(Event.KEYDOWN);	
+	*/
 	// $(document).ready(function() {
 /*
 		$('#control1').mouseover(function() {
@@ -85,7 +100,7 @@ startArtyom();
 				}
 			},
 			{
-				indexes:['abre usuarios','abre especialidad','abre pacientes','abre perfiles','abre clínica','captura','guarda','gracias por tu ayuda'],
+				indexes:['abre usuarios','abre especialidad','abre pacientes','abre perfiles','abre clínica','captura','guarda','gracias por tu ayuda','cerrar'],
 				action: function(i){
 					if (i==0) {
 						artyom.say("Abriendo el módulo de usuarios");
@@ -203,6 +218,10 @@ startArtyom();
 					if (i==7) {
 						artyom.say('Adiós');
 						stopArtyom();
+					}
+					if (i==8) {
+						$("#modalForm").modal('hide');
+						
 					}
 
 
